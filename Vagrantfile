@@ -6,7 +6,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "sixodp" do |server|
     server.vm.box = "bento/ubuntu-16.04"
-    server.vm.network :private_network, ip: "10.106.10.10"
+    server.vm.network :private_network, ip: "10.106.10.12"
     server.vm.hostname = "sixodp"
 
     case RUBY_PLATFORM

@@ -69,7 +69,7 @@
 			  </div>
 				<hr />
         <div class="copyrights">
-          © 6Aika
+          © Tampereen kaupunki
         </div>
 			</div>
 		</footer><!-- .site-footer -->
