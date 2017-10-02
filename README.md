@@ -20,7 +20,7 @@ Clone the repository and its submodules, and start Vagrant:
     npm run build
     vagrant up
 
-Vagrant installs ansible inside the virtual machine so that Windows users can also automate local builds. 
+Vagrant installs ansible inside the virtual machine so that Windows users can also automate local builds. Ansible is locked to version 2.3.2 as 2.4 was broken. If the lock is removed, remember to remove lock from jenkins and cloudformation. 
 After [Ansible](http://www.ansible.com/) provisions the system, the service will be running in the virtual machine and is available from your host machine at https://10.106.10.10/
 
 User credentials for an administrator are `admin:admin`, and `test:test` for a regular user.
@@ -38,6 +38,21 @@ And you can also run Ansible manually inside the virtual machine:
     vagrant ssh
     cd /vagrant/ansible
     ansible-playbook -v -i inventories/vagrant deploy-all.yml
+    
+Multimachine vagrant environment can be build with:
+    
+    vagrant up multimain
+    vagrant up multickan
+    
+Individual machines are in located in:
+   
+* Wordpress: 10.106.10.20
+* CKAN: 10.106.10.30
+
+You can SSH into them with:
+    
+    vagrant ssh multimain
+    vagrant ssh multickan  
 
 ### Development
 

@@ -571,6 +571,18 @@ function get_recent_comments($date = false) {
   return [];
 }
 
+function get_disqus_comment_count($post) {
+  $fields = array(
+    'api_secret' => DISQUS_SECRET_KEY,
+    'forum' => DISQUS_SHORT_NAME,
+    'thread' => 'link:'. get_permalink($post)
+  );
+
+  $thread_data = json_decode(file_get_contents('http://disqus.com/api/3.0/threads/set.json?'. http_build_query($fields)), true);
+
+  return $thread_data['response'][0]['posts'];
+}
+
 function get_recent_content($date = false) {
   if ($date) {
     $data = get_ckan_data(CKAN_API_URL.'/action/package_search?sort=date_updated%20desc&rows=8&q=date_updated:['. date('Y-m-d\T00:00:00', strtotime($date)) .'Z%20TO%20'. date('Y-m-d\T00:00:00', strtotime($date . '+ 1 WEEK')) .'Z]');
@@ -628,6 +640,8 @@ function get_api_count() {
   }
   return 0;
 }
+
+
 
 function get_api_link() {
   $api_collection = get_ckan_data(CKAN_API_URL."/action/api_collection_show");
@@ -727,11 +741,13 @@ function get_recent_posts($type, $date = false) {
   return $data;
 }
 
-function get_latest_updates($types = array(), $date = false) {
+function get_latest_updates($types = array(), $date = false, $limit = 12) {
   $defaults = array(
     'datasets' => true,
     'showcases' => true,
     'comments' => true,
+    'posts' => false,
+    'pages' => false,
     'data_requests' => false,
     'showcase_ideas' => false,
   );
@@ -741,12 +757,15 @@ function get_latest_updates($types = array(), $date = false) {
   $datasets   = $types['datasets'] ? array_map('format_ckan_row', get_recent_content($date)) : [];
   $showcases  = $types['showcases'] ? array_map('format_ckan_row', get_latest_showcases(20, $date)) : [];
   $comments   = $types['comments'] ? get_recent_comments($date) : [];
+  $posts = $types['posts'] ? get_recent_posts('post', $date) : [];
+  $pages = $types['pages'] ? get_recent_posts('page', $date) : [];
   $data_requests = $types['data_requests'] ? get_recent_posts('data_request', $date) : [];
   $showcase_ideas = $types['showcase_ideas'] ? get_recent_posts('showcase_idea', $date) : [];
 
-  $arr = array_merge($datasets, $showcases, $comments, $data_requests, $showcase_ideas);
+  $arr = array_merge($datasets, $showcases, $comments, $posts, $pages, $data_requests, $showcase_ideas);
 
-  return array_slice(sort_results($arr), 0, 12);
+  if ($limit) return array_slice(sort_results($arr), 0, $limit);
+  else return sort_results($arr);
 }
 
 const DEFAULT_LANGUAGE = 'fi';
@@ -830,13 +849,13 @@ function get_post_grandparent_id($post_ID) {
   if ($parent_ID != 0) {
     $result = get_post_grandparent_id($parent_ID);
 
-    if ($result === false) return $post_ID;
-    else return $result;
+    return $result;
   }
-  else return false;
+  else return $post_ID;
 }
 
 function get_category_grandparent_id($category) {
+  
   if (is_numeric($category)) $category = get_category($category);
 
   if (!$category INSTANCEOF WP_Term) return false;
@@ -857,7 +876,7 @@ function create_form_results() {
     'label'         => "Data Requests",
     'description'   => 'Data Requests results',
     'public'        => true,
-    'supports'      => array( 'title', 'editor', 'custom-fields' ),
+    'supports'      => array( 'title', 'editor', 'custom-fields', 'comments' ),
     'has_archive'   => true,
     'show_in_rest'  => true
   ) );
@@ -866,7 +885,7 @@ function create_form_results() {
     'label'         => "Showcase ideas",
     'description'   => 'Showcase ideas results',
     'public'        => true,
-    'supports'      => array( 'title', 'editor', 'custom-fields' ),
+    'supports'      => array( 'title', 'editor', 'custom-fields', 'comments' ),
     'has_archive'   => true,
     'show_in_rest'  => true
   ) );

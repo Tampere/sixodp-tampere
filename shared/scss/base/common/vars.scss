@@ -49,20 +49,25 @@ $brand-background: #ffffff;
 $brand-secondary-background: #f8f8f8;
 
 $text-color: $gray-base;
-$headings-color: $brand-secondary;
+$headings-color: $brand-primary;
 $headings-small-color: $brand-primary;
 $headings-secondary-color: $brand-primary;
 $headings-extra-color: $brand-gray;
 
 // Frontpage elements
+$btn-main-bg: $brand-secondary;
+$btn-main-color: $brand-white;
+$btn-main-active-bg: $brand-secondary-light;
+$btn-main-active-color: $brand-white;
+
 $category-box-bg: $brand-white;
 $category-box-text-color: $brand-primary;
 $category-box-count-color: $brand-primary;
-
 $stats-text-color: $brand-white;
 
 $accordion-bg: $gray-base;
 $accordion-tab-bg: $gray-base;
+$accordion-tab-overlay-bg: $gray-base;
 $accordion-tab-border-color: $brand-white;
 $accordion-tab-text-color: $brand-white;
 $accordion-tab-heading-color: $brand-white;
@@ -79,9 +84,10 @@ $showcase-card-text-color: $brand-white;
 
 $dataset-card-bg: $brand-white;
 $dataset-card-border-color: $brand-lightgray;
-$dataset-card-heading-color: $brand-secondary;
+$dataset-card-heading-color: $brand-primary;
 $dataset-card-text-color: $text-color;
-$dataset-card-link-color: $brand-secondary;
+$dataset-card-link-color: $brand-success;
+
 
 $latest-bg: $brand-warning;
 $latest-card-heading-bar-bg: $brand-secondary;
@@ -89,7 +95,7 @@ $latest-card-heading-bar-color: $brand-white;
 $latest-card-bg: $brand-white;
 $latest-card-heading-color: $brand-primary;
 $latest-card-text-color: $brand-primary;
-$latest-card-link-color: $brand-secondary;
+$latest-card-link-color: $brand-primary;
 
 // Button
 $btn-font-weight: 100;
@@ -109,7 +115,8 @@ $card-border-highlight-color-active: $brand-success;
 
 // Navigation
 $navbar-background-color: #f8f8f8;
-
+$notificationbar-bg: $brand-info;
+$notificationbar-text-color: $brand-white;
 $notificationbar-height: $base + 24px;
 $navbar-height: 60px;
 $navbar-margin-bottom: 0;

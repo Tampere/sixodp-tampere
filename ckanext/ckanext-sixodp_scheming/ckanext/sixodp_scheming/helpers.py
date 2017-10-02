@@ -34,16 +34,6 @@ def scheming_field_only_default_required(field, lang):
 
     return False
 
-def ensure_translated(s):
-    ts = type(s)
-    if ts == unicode:
-        return s
-    elif ts == str:
-        return unicode(s)
-    elif ts == dict:
-        language = i18n.get_lang()
-        return ensure_translated(s.get(language, u""))
-
 def get_current_date():
     import datetime
     return datetime.date.today().strftime("%d.%m.%Y")
@@ -54,9 +44,20 @@ def get_package_groups_by_type(package_id, group_type):
 
     group_list = []
 
+    data_dict = {
+        'all_fields': True,
+        'include_extras': True,
+        'type': group_type
+    }
+
+    groups = logic.get_action('group_list')(context, data_dict)
+
     try:
         pkg_obj = Package.get(package_id)
-        group_list = group_list_dictize(pkg_obj.get_groups(group_type, None), context)
+        pkg_group_ids = set(group['id'] for group in group_list_dictize(pkg_obj.get_groups(group_type, None), context))
+        group_list = [group
+                      for group in groups if
+                      group['id'] in pkg_group_ids]
     except (NotFound):
         abort(404, _('Dataset not found'))
 

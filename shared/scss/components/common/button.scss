@@ -26,12 +26,12 @@
 }
 
 .btn-secondary {
-  background-color: $brand-secondary;
-  color: $brand-white;
+  background-color: $btn-main-bg;
+  color: $btn-main-color;
 
   &:hover, &:focus, &:active {
-    background-color: $brand-secondary-light;
-    color: $brand-white;
+    background-color: $btn-main-active-bg;
+    color: $btn-main-active-color;
   }
 }
 
@@ -86,8 +86,11 @@
   margin-bottom: $base;
 }
 
+.page-template-ajankohtaista .btn--ajankohtaista {
+  display: none;
+}
+
 .btn-list-item {
-  text-align: left;
   padding-left: $padding-large-horizontal;
   padding-right: $padding-large-horizontal;
 }

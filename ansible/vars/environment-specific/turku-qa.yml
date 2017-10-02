@@ -12,7 +12,7 @@ postgres:
     installed_locally: false
     host: sixodp-{{ deployment_environment_id }}-ckan.{{ rds_domain_common_part }}
     admin_user: ckan_admin
-    admin_password: "{{ secret.database_ckan_admin_password }}"
+    admin_password: "{{ secret.database_ckan_root_password }}"
     trusted_ip_range: 127.0.0.1/32
   users:
     ckan:
@@ -28,6 +28,22 @@ postgres:
     ckan_datastore:
       name: datastore_default
       owner: ckan_default
+
+mysql:
+  server:
+    installed_locally: false
+    host: sixodp-{{ deployment_environment_id }}-wordpress.{{ rds_domain_common_part }}
+    admin_user: ckan_admin
+    admin_password: "{{ secret.database_wordpress_root_password }}"
+    trusted_ip_range: 127.0.0.1/32
+  users:
+    wordpress:
+      username: wordpress
+      password: "{{ secret.database_wordpress_password }}"
+  databases:
+    wordpress:
+      name: wordpress
+      owner: wordpress
 
 nginx:
   use_ssl_certificate: true
@@ -66,6 +82,12 @@ ckan_users:
     password: "{{ secret.ckan_test_password }}"
     email: testuser@localhost
 
+wordpress_users:
+  admin:
+    username: admin
+    password: "{{ secret.wordpress_admin_password }}"
+    email: admin@localhost.localdomain
+
 ckan_admins:
   - "{{ ckan_users.admin.username }}"
   - "{{ ckan_users.harvest.username }}"
@@ -101,7 +123,6 @@ ckan_extensions:
 # List of enabled CKAN extensions in load order. Order matters, when templates call super()
 enabled_ckan_extensions:
     - disqus
-    - datastore
     - datapusher
     - text_view
     - image_view
@@ -110,7 +131,9 @@ enabled_ckan_extensions:
     - recline_grid_view
     - recline_map_view
     - sixodp_showcase
+#    - googleanalytics
     - sixodp_ui
+    - datastore
     - datasetcopy
     - sixodp_scheming
     - scheming_datasets
@@ -119,7 +142,7 @@ enabled_ckan_extensions:
     - report
     - publisher_activity_report
     - ga-report
-        - rating
+    - rating
     - sixodp_routes
     - sixodp_feed
     - qa
@@ -137,7 +160,6 @@ enabled_ckan_extensions:
     - csw_harvester
     - sixodp_harvester
     - sixodp_showcasesubmit
-#    - googleanalytics
 
 enabled_ckan_aws_extensions: cloudstorage
 

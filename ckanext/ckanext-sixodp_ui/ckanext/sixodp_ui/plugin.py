@@ -10,6 +10,7 @@ import logging
 import copy
 from ckan.common import _
 from ckanext.sixodp_ui import helpers
+from ckanext.sixodp_ui.logic import action
 from ckan.lib.plugins import DefaultTranslation
 
 get_action = logic.get_action
@@ -20,16 +21,6 @@ except ImportError:
     from sqlalchemy.util import OrderedDict
 
 log = logging.getLogger(__name__)
-
-def ensure_translated(s):
-    ts = type(s)
-    if ts == unicode:
-        return s
-    elif ts == str:
-        return unicode(s)
-    elif ts == dict:
-        language = i18n.get_lang()
-        return ensure_translated(s.get(language, u""))
 
 
 def service_alerts():
@@ -182,6 +173,7 @@ class Sixodp_UiPlugin(plugins.SingletonPlugin, DefaultTranslation):
     if toolkit.check_ckan_version(min_version='2.5.0'):
         plugins.implements(plugins.ITranslation, inherit=True)
     plugins.implements(plugins.IPackageController, inherit=True)
+    plugins.implements(plugins.IActions, inherit=True)
 
     # IConfigurer
 
@@ -288,3 +280,10 @@ class Sixodp_UiPlugin(plugins.SingletonPlugin, DefaultTranslation):
                         search_results['search_facets']['groups']['items'][i]['title_translated'] = group.get('title_translated')
 
         return search_results
+
+        # IActions
+
+    def get_actions(self):
+        return {
+            'package_autocomplete': action.package_autocomplete,
+        }
