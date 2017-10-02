@@ -15,7 +15,7 @@ postgres:
     installed_locally: false
     host: sixodp-{{ deployment_environment_id }}-ckan.{{ rds_domain_common_part }}
     admin_user: ckan_admin
-    admin_password: "{{ secret.database_ckan_admin_password }}"
+    admin_password: "{{ secret.database_ckan_root_password }}"
     trusted_ip_range: 127.0.0.1/32
   users:
     ckan:
