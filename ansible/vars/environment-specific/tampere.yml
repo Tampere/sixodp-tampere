@@ -44,7 +44,7 @@ mysql:
   server:
     installed_locally: false
     host: sixodp-{{ deployment_environment_id }}-wordpress.{{ rds_domain_common_part }}
-    admin_user: ckan_admin
+    admin_user: wordpress
     admin_password: "{{ secret.database_wordpress_root_password }}"
     trusted_ip_range: 127.0.0.1/32
   users:
