@@ -49,12 +49,12 @@ mysql:
     trusted_ip_range: 127.0.0.1/32
   users:
     wordpress:
-      username: wordpress
+      username: wordpress_user
       password: "{{ secret.database_wordpress_password }}"
   databases:
     wordpress:
       name: wordpress
-      owner: wordpress
+      owner: wordpress_user
 solr:
   host: 127.0.0.1
   port: 8983
