@@ -1,6 +1,7 @@
 <?php
 require_once(ABSPATH . 'wp-admin/includes/post.php'); 
-require_once(ABSPATH . 'wp-admin/includes/taxonomy.php'); 
+require_once(ABSPATH . 'wp-admin/includes/taxonomy.php');
+require_once WP_CONTENT_DIR . '/themes/sixodp/vendor/Parsedown.php';
 
 load_theme_textdomain('sixodp');
 if ( !function_exists('sixodp_theme_setup') ) :
@@ -592,7 +593,7 @@ function get_recent_content($date = false) {
 }
 
 function get_latest_datasets() {
-  $data = get_ckan_data(CKAN_API_URL.'/action/package_search?sort=date_updated%20desc&rows=3');
+  $data = get_ckan_data(CKAN_API_URL.'/action/package_search?sort=date_updated%20desc&rows=6');
   return $data['result']['results'];
 }
 
@@ -746,8 +747,8 @@ function get_latest_updates($types = array(), $date = false, $limit = 12) {
     'datasets' => true,
     'showcases' => true,
     'comments' => true,
-    'posts' => false,
-    'pages' => false,
+    'posts' => true,
+    'pages' => true,
     'data_requests' => false,
     'showcase_ideas' => false,
   );
@@ -969,3 +970,8 @@ function custom_category_query($query) {
 }
 
 add_action( 'pre_get_posts', 'custom_category_query' );
+
+function render_markdown($markdown) {
+  $Parsedown = new Parsedown();
+  return $Parsedown->text($markdown);
+}
