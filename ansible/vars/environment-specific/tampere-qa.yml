@@ -180,7 +180,7 @@ AWS:
   ckan_s3_bucket: sixodp-{{ deployment_environment_id }}-datasets
   region: S3_EU_WEST
 
-recaptcha_sitekey: somesitekey
+recaptcha_sitekey: 6LdD4S8UAAAAADm1NEkJGDRKHHvoOmXIHjsWN7la
 
 disqus_public_key: "{{ secret.disqus_public_key }}"
 disqus_secret_key: "{{ secret.disqus_secret_key }}"
