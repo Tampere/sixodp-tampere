@@ -40,7 +40,7 @@ get_header(); ?>
                     <i class="material-icons">bookmark</i>
                   <?php
                   if ($post_type->name === 'data_request') _e('Data Request');
-                  if ($post_type->name === 'showcase_idea') _e('Showcase Idea');
+                  else if ($post_type->name === 'showcase_idea') _e('Showcase Idea');
                   else echo $post_type->labels->singular_name; 
                   ?>
                 </a></li>
@@ -49,25 +49,34 @@ get_header(); ?>
             endif; 
             ?>
 
-            <ul>
-              <li class="sidebar-item--highlight">
-                <span class="sidebar-item-inner">
-                  <i class="material-icons">bookmark</i> <?php _e('Categories') ?>
-                </span>
-              </li>
-              <?php
-              foreach (get_the_category() as $cat):
-                ?>
-                <li class="sidebar-item">
-                  <a href="<?php echo get_category_link($cat); ?>">
-                    <i class="material-icons">settings</i>
-                    <?php echo $cat->cat_name; ?>
-                  </a>
+            <?php
+              $categories = get_the_category();
+              if (sizeof($categories) > 0) :
+            ?>
+              <ul>
+                <li class="sidebar-item--highlight">
+                  <span class="sidebar-item-inner">
+                    <i class="material-icons">bookmark</i> <?php _e('Categories') ?>
+                  </span>
                 </li>
-                <?php 
-              endforeach;
-              ?>
-            </ul>
+                <?php
+                foreach ($categories as $cat):
+                  ?>
+                  <li class="sidebar-item">
+                    <a href="<?php echo isset($cat->cat_ID) ? get_category_link($cat) : $cat->link ?>">
+                      <?php echo $cat->cat_name; ?>
+                      <span class="sidebar-icon-wrapper">
+                        <span class="fa fa-chevron-right"></span>
+                      </span>
+                    </a>
+                  </li>
+                  <?php
+                endforeach;
+                ?>
+              </ul>
+            <?php
+            endif;
+            ?>
 
             <?php
             $tags = get_the_tags();
@@ -75,15 +84,19 @@ get_header(); ?>
             ?>
               <ul>
                 <li class="sidebar-item--highlight">
-                  <i class="material-icons">label</i> <?php _e('Tags') ?>
+                  <span class="sidebar-item-inner">
+                    <i class="material-icons">label</i> <?php _e('Tags') ?>
+                  </span>
                 </li>
                 <?php
                 foreach ($tags as $tag):
                   ?>
                   <li class="sidebar-item">
                     <a href="<?php echo get_tag_link($tag); ?>">
-                      <i class="material-icons">settings</i>
                       <?php echo $tag->name; ?>
+                      <span class="sidebar-icon-wrapper">
+                        <span class="fa fa-chevron-right"></span>
+                      </span>
                     </a>
                   </li>
                   <?php 
@@ -100,11 +113,9 @@ get_header(); ?>
                 <li class="sidebar-item">
                   <span class="sidebar-item-inner">
                     <img src="<?php echo get_avatar_url(get_the_author_meta('id'), ['size' => 128]) ?>" class="avatar" />
-                    <p><strong><?php the_author(); ?></strong></p>
-                    <p><?php echo get_the_author_meta('description'); ?></p>
+                    <p class="text-center"><strong><?php echo trim(get_the_author_meta('first_name') . ' ' . get_the_author_meta('last_name')) ?></strong></p>
+                    <p><?php echo wp_html_excerpt(get_the_author_meta('description'), 240, '...'); ?></p>
                   </span>
-                </li>
-                <li class="sidebar-item">
                 </li>
               </ul>
             <?php endif; ?>
