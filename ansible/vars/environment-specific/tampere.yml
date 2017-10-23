@@ -184,7 +184,7 @@ google_analytics:
   id: UA-98421659-1
   account: Tampereen kaupunki
 
-recaptcha_sitekey: somesitekey
+recaptcha_sitekey: 6Lc0hDUUAAAAADpECjM6YBkpWimCJGHMb0_GgtWO
 
 disqus_public_key: "{{ secret.disqus_public_key }}"
 disqus_secret_key: "{{ secret.disqus_secret_key }}"

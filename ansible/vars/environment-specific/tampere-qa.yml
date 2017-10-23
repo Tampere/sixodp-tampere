@@ -114,7 +114,7 @@ ckan_extensions:
   - ckanext-statistics
   - ckanext-sixodp_harvester
   - ckanext-sixodp_showcasesubmit
-#  - ckanext-googleanalytics
+  - ckanext-googleanalytics
 
 # List of enabled CKAN extensions in load order. Order matters, when templates call super()
 enabled_ckan_extensions:
@@ -128,7 +128,7 @@ enabled_ckan_extensions:
     - recline_grid_view
     - recline_map_view
     - sixodp_showcase
-#    - googleanalytics
+    - googleanalytics
     - sixodp_ui
     - datasetcopy
     - sixodp_scheming
@@ -180,7 +180,11 @@ AWS:
   ckan_s3_bucket: sixodp-{{ deployment_environment_id }}-datasets
   region: S3_EU_WEST
 
-recaptcha_sitekey: 6LdD4S8UAAAAADm1NEkJGDRKHHvoOmXIHjsWN7la
+google_analytics:
+  id: UA-98421659-3
+  account: Sixodp
+
+recaptcha_sitekey: 6Lc3gzUUAAAAAPzYGUrGIZScY5TRfQ7R1H_xB2AI
 
 disqus_public_key: "{{ secret.disqus_public_key }}"
 disqus_secret_key: "{{ secret.disqus_secret_key }}"
