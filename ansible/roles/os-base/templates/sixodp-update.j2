@@ -18,6 +18,6 @@ if [ "$GIT_COMMIT_NEW" != "$GIT_COMMIT_OLD" ] ; then
 	aws s3 cp s3://sixodp-tampere-secrets/{{ deployment_environment_id }}/google_analytics_credentials.json /root/sixodp-secrets/{{ deployment_environment_id }}/google_analytics_credentials.json
 	chmod -R go-rwx /root/sixodp-secrets/*
 
-	cd /root/sixodp/ansible
+	cd /root/sixodp-tampere/ansible
 	ansible-playbook -i inventories/{{ deployment_environment_id }} deploy-transitional.yml
 fi
