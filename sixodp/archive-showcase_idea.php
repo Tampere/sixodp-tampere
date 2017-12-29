@@ -14,12 +14,9 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
   <main id="main" class="site-main wrapper" role="main">
-    
-    <?php
-      get_template_part('partials/header-logos');
-    ?>
 
-    <div class="page-hero"></div>
+    <?php get_template_part('partials/page-hero'); ?>
+
     <div class="page-hero-content container">
       <div class="wrapper">
         <div class="headingbar">
@@ -27,7 +24,7 @@ get_header(); ?>
         </div>
 
         <div class="row">
-          <div class="col-md-3 sidebar">
+          <div class="sidebar col-md-3 col-sm-5 col-xs-12">
             <ul>
               <li class="sidebar-item--highlight">
                 <a href="<?php echo get_permalink(get_translated_page_by_title('Uusi sovellusidea')); ?>">
@@ -39,7 +36,7 @@ get_header(); ?>
               </li>
             </ul>
           </div>
-          <div class="col-md-9 col-xs-12">
+          <div class="col-md-9 col-sm-7 col-xs-12">
             <div class="cards cards--2 cards--image">
               <?php
                 // Start the loop.

@@ -55,11 +55,9 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
   <main id="main" role="main">
-    <?php
-      get_template_part('partials/header-logos');
-    ?>
 
-    <div class="page-hero"></div>
+    <?php get_template_part('partials/page-hero'); ?>
+
     <div class="page-hero-content container">
       <div class="wrapper">
 
@@ -70,7 +68,7 @@ get_header(); ?>
         </div>
 
         <div class="row">
-          <div class="sidebar col-sm-3">
+          <div class="sidebar col-md-3 col-sm-5 col-xs-12">
             <ul>
               <li class="sidebar-item--highlight">
                 <a href="<?php echo get_post_type_archive_link( 'data_request' ); ?>"><?php _e('All data requests', 'sixodp') ?>
@@ -80,7 +78,7 @@ get_header(); ?>
                 </a>
               </li>
           </div>
-          <div class="col-xs-12 col-sm-9">
+          <div class="col-md-9 col-sm-7 col-xs-12">
             <?php
 
             if ($welcome_page && sizeof($errors) == 0) {

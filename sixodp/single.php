@@ -14,12 +14,9 @@ get_header(); ?>
 
 <div id="primary" class="content-area">
   <main id="main" class="site-main wrapper" role="main">
-    
-    <?php
-      get_template_part('partials/header-logos');
-    ?>
 
-    <div class="page-hero"></div>
+    <?php get_template_part('partials/page-hero'); ?>
+
     <div class="page-content page-hero-content container">
       <?php
       // Start the loop.
@@ -29,7 +26,7 @@ get_header(); ?>
 
         ?>
         <div class="row">
-          <div class="col-md-3 sidebar">
+          <div class="sidebar col-md-3 col-sm-5 col-xs-12">
             <?php 
             $post_type = get_post_type_object(get_post_type());
             if ($post_type->name !== 'post' && $post_type->name !== 'page') :
@@ -127,7 +124,7 @@ get_header(); ?>
               </li>
             </ul>
           </div>
-          <div class="col-md-9 news-content">
+          <div class="col-md-9 col-sm-7 col-xs-12 news-content">
             <h1 class="heading-content"><?php the_title() ?></h1>
             <article class="article"><?php the_content() ?></article>
             

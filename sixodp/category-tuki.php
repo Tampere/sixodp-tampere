@@ -18,23 +18,22 @@ $category = get_queried_object();
 
 <div id="primary" class="content-area">
   <div id="main" class="site-main" role="main">
-    <?php get_template_part('partials/header-logos'); ?>
 
-    <div class="page-hero"></div>
+    <?php get_template_part('partials/page-hero'); ?>
+
     <div class="page-hero-content container">
 
       <div class="wrapper">
         <div class="headingbar">
-          <h1 class="heading-main">
-            <a href="<?php echo get_category_link($parent_category) ?>"><?php echo $parent_category->name ?></a>
-            <?php if ($parent_category->term_id != $category->term_id) {
-              ?>
-                <i class="material-icons">navigate_next</i>
-                <span><?php echo $category->name ?></span>
-              <?php
-            }
-            ?>
-          </h1>
+          <h1 class="heading-main"><?php echo $category->name ?></h1>
+
+          <ol class="breadcrumb">
+            <li><a href="<?php echo get_home_url() ?>"><?php echo _('Home') ?></a></li>
+            <li><a href="<?php echo get_category_link($parent_category) ?>"><?php echo $parent_category->name ?></a></li>
+            <?php if ($parent_category->term_id != $category->term_id) { ?>
+              <li><a href="<?php echo get_category_link($category) ?>"><?php echo $category->name ?></a></li>
+            <?php } ?>
+          </ol>
         </div>
 
         <div class="row">

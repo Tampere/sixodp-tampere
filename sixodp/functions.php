@@ -965,7 +965,6 @@ function custom_category_query($query) {
     if ($category->term_id == $expected_anchestor->term_id or cat_is_ancestor_of($expected_anchestor, $category)) {
       $query->set('post_type', 'page');
     }
-    $query->set('posts_per_page', 9);
   }
 
   return $query;
@@ -993,3 +992,5 @@ jQuery("#post-status-info #wp-word-count .word-count").after(" Character count: 
 }
 add_action( 'admin_head-post.php', 'excerpt_count_js');
 add_action( 'admin_head-post-new.php', 'excerpt_count_js');
+
+add_filter('disqus_language_filter', 'get_lang');

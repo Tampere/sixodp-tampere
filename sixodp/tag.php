@@ -11,11 +11,8 @@ get_header(); ?>
 <div id="primary" class="content-area">
   <main id="main" class="site-main wrapper" role="main">
 
-    <?php
-    get_template_part('partials/header-logos');
-    ?>
+    <?php get_template_part('partials/page-hero'); ?>
 
-    <div class="page-hero"></div>
     <div class="page-hero-content container">
 
       <div class="headingbar">
@@ -25,7 +22,7 @@ get_header(); ?>
       </div>
 
       <div class="row">
-        <div class="sidebar col-md-3">
+        <div class="sidebar col-md-3 col-sm-5 col-xs-12">
           <?php
             $tags = get_tags(
               array(
@@ -59,7 +56,7 @@ get_header(); ?>
           </ul>
         </div>
 
-        <div class="col-md-9 news-content">
+        <div class="col-md-9 col-sm-7 col-xs-12 news-content">
           <div class="cards cards--2 cards--image">
             <?php
             // Start the loop.
