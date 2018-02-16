@@ -20,7 +20,7 @@
           <div class="item<?php echo $extra_classes ?>">
             <?php
             $item = array(
-              'external_card_class' => 'card-success',
+              'external_card_class' => '',
               'image_url' => CKAN_BASE_URL . "/uploads/showcase/".$showcase['featured_image'],
               'title' => get_translated($showcase, 'title'),
               'show_rating' => true,
@@ -56,7 +56,7 @@
       <?php
         foreach ($showcases as $showcase) {
           $item = array(
-            'external_card_class' => 'card-success',
+            'external_card_class' => '',
             'image_url' => CKAN_BASE_URL . "/uploads/showcase/".$showcase['featured_image'],
             'title' => get_translated($showcase, 'title'),
             'show_rating' => true,
