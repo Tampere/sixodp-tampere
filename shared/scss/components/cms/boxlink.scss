@@ -69,7 +69,7 @@
       color: $card-text-color;
 
       &:hover {
-        $card-text-color;
+        color: $card-text-color-active;
       }
     }
   }
