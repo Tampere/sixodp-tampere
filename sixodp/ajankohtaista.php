@@ -44,7 +44,7 @@ get_header(); ?>
       ?>
       <div class="container">
         <div class="row btn-container">
-          <a href="https://twitter.com/@6Aika" class="btn btn-transparent--inverse" target="_blank">Lue lisää Twitterissä</a>
+          <a href="https://twitter.com/opendatatre" class="btn btn-transparent--inverse" target="_blank">Lue lisää Twitterissä</a>
         </div>
       </div>
     </div>

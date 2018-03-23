@@ -28,6 +28,8 @@
   max-width: $base*41;
   margin: $base auto;
   transition: box-shadow .2s ease-in-out, transform .2s ease-in-out;
+  background-size: cover;
+  background-position: center center;
 
   @media (min-width: $width-sm) {
     max-width: $base*48;
@@ -55,7 +57,7 @@
   padding: $base $base*2;
   border-bottom-left-radius: $base/2;
   border-bottom-right-radius: $base/2;
-  background-color: $brand-white;
+  background-color: $card--image-bg;
 
   .heading {
     float: left;
