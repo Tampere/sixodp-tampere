@@ -16,6 +16,7 @@ import ckan.lib.base as base
 #import ckan.lib.csrf_token as csrf_token
 import ckan.lib.mailer as mailer
 from ckan.plugins import toolkit
+import ckan.plugins as p
 
 from ckan.controllers.user import set_repoze_user
 
@@ -128,9 +129,9 @@ class Sixodp_OrganizationController(OrganizationController):
         q = c.q = request.params.get('q', '')
         # Search within group
         if c.group_dict.get('is_organization'):
-            q += ' owner_org:"%s"' % c.group_dict.get('id')
+            fq = 'owner_org:"%s"' % c.group_dict.get('id')
         else:
-            q += ' groups:"%s"' % c.group_dict.get('name')
+            fq = 'groups:"%s"' % c.group_dict.get('name')
 
         c.description_formatted = \
             h.render_markdown(c.group_dict.get('description'))
@@ -206,7 +207,13 @@ class Sixodp_OrganizationController(OrganizationController):
                     facets[facet] = facet
 
             # Facet titles
-            self._update_facet_titles(facets, group_type)
+            for plugin in p.PluginImplementations(p.IFacets):
+                if group_type == 'organization':
+                    facets = plugin.organization_facets(
+                        facets, group_type, None)
+                else:
+                    facets = plugin.group_facets(
+                        facets, group_type, None)
 
             if 'capacity' in facets and (group_type != 'organization' or
                                              not user_member_of_orgs):
@@ -221,7 +228,7 @@ class Sixodp_OrganizationController(OrganizationController):
 
             data_dict = {
                 'q': q,
-                'fq': '',
+                'fq': fq,
                 'include_private': include_private,
                 'facet.field': facets.keys(),
                 'rows': limit,

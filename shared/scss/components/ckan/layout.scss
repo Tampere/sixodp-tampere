@@ -27,7 +27,7 @@
   z-index: 1;
   float: left;
   overflow: auto;
-  max-height: 0;
+  max-height: none;
 
   @media (min-width: $width-sm) {
     overflow: hidden;

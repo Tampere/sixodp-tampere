@@ -19,7 +19,7 @@
     $child_categories = get_categories(array('parent' => $cat->term_id, 'hide_empty' => false));
     ?>
     <ul>
-      <li class="sidebar-item<?php if ($cat->cat_name === $category->name) { echo '--highlight'; } ?>">
+      <li class="sidebar-item<?php if ($cat->cat_name === $category->name) { echo ' active'; } ?>">
         <a href="<?php echo get_category_link($cat); ?>">
           <span class="sidebar-icon-wrapper">
             <span class="fa fa-long-arrow-right"></span>
@@ -30,7 +30,7 @@
       <?php
       foreach ($child_categories as $child_cat) : 
       ?>
-      <li class="sidebar-item">
+      <li class="sidebar-item child">
         <a href="<?php echo get_category_link($child_cat); ?>">
           <?php echo $child_cat->name; ?>  
         </a>
@@ -45,16 +45,16 @@
     'hide_empty' => false
   ));
   ?>
-  <h3 class="heading-sidebar"><?php _e('Themes', 'sixodp') ?></h2>
+  <h3 class="heading-sidebar"><?php _e('Themes', 'sixodp') ?></h3>
   <ul>
   <?php
   foreach ($teemat as $teema_cat) :?>
-    <li class="sidebar-item<?php if ($teema_cat->name === $category->name) { echo '--highlight'; } ?>">
+    <li class="sidebar-item<?php if ($teema_cat->name === $category->name) { echo ' active'; } ?>">
       <a href="<?php echo get_category_link($teema_cat); ?>">
-        <?php echo $teema_cat->name; ?>
         <span class="sidebar-icon-wrapper">
-          <span class="fa fa-chevron-right"></span>
-        </span>
+            <span class="fa fa-long-arrow-right"></span>
+          </span>
+          <?php echo $teema_cat->name; ?>
       </a>
     </li>
   <?php endforeach; ?>

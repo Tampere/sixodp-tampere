@@ -20,15 +20,36 @@
 
   .heading-sidebar {
     padding-left: $padding-large-horizontal*2;
+    color: $sidebar-heading-color;
   }
 }
 
 .sidebar-item {
   padding: 0;
   background: transparent;
+  text-transform: uppercase;
+  font-size: $font-size-small;
+  font-weight: $headings-font-weight;
+  vertical-align: middle;
+  line-height: $base*3.2;
 
   a,
   .sidebar-item-inner {
+       transition: all $transition-speed-base $transition-curve-base;
+       width: 100%;
+       padding: $padding-small-vertical $padding-large-horizontal*2;
+       position: relative;
+       display: block;
+       background: $sidebar-item-bg;
+       color: $sidebar-item-color;
+       height: $base*4.2;
+       margin-top: -1px;
+       margin-left: -1px;
+       border: 1px solid #eee;
+
+     }
+
+  .sidebar-item-author {
     transition: all $transition-speed-base $transition-curve-base;
     width: 100%;
     padding: $padding-small-vertical $padding-large-horizontal*2;
@@ -36,31 +57,40 @@
     display: block;
     background: $sidebar-item-bg;
     color: $sidebar-item-color;
+    margin-top: -1px;
+    margin-left: -1px;
+    border: 1px solid #eee;
+
   }
 
   &:hover {
     a {
-      background: $sidebar-item-bg-active;
-      color: $sidebar-item-color-active;
+      background: $sidebar-item-bg--highlight;
+      color: $sidebar-item-color--highlight;
+      padding-left: $padding-large-horizontal*2 + 5px;
     }
 
     .sidebar-icon-wrapper {
       right: 0;
+      display: inline-block;
     }
   }
 
   .sidebar-icon-wrapper {
     transition: all $transition-speed-base $transition-curve-base;
-    display: inline-block;
-    height: $base*3.2;
+    display: none;
+    height: $base*2.4;
     width: $base*2.4;
-
     span {
       font-size: $font-size-large;
-      line-height: $base*3.2;
+      line-height: $base*2.4;
       margin-right: 0;
     }
   }
+}
+
+.sidebar-item.child{
+  margin: 0 0 0 5px;
 }
 
 .sidebar-item.active {
@@ -73,17 +103,18 @@
 
 .sidebar-item--highlight {
   @extend .sidebar-item;
+  margin: 0;
 
   a,
   .sidebar-item-inner {
-    background: $sidebar-item-bg--highlight;
-    color: $sidebar-item-color--highlight;
+    background: $sidebar-item-bg;
+    color: $sidebar-item-color;
   }
 
   &:hover {
     a {
-      background: $sidebar-item-bg-active--highlight;
-      color: $sidebar-item-color-active--highlight;
+      background: $sidebar-item-bg--highlight;
+      color: $sidebar-item-color--highlight;
     }
   }
 }
@@ -94,12 +125,4 @@
     background: $sidebar-item-bg-active--highlight;
     color: $sidebar-item-color-active--highlight;
   }
-}
-
-.sidebar-heading {
-  @extend .sidebar-item;
-  font-size: $font-size-large;
-  color: $headings-color;
-  font-family: $headings-font-family;
-  font-weight: $headings-font-weight;
 }

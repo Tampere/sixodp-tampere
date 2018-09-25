@@ -371,6 +371,14 @@ function get_translated_page_by_title ($title) {
   return get_page($translated_page_id);
 }
 
+function get_translated_page_by_slug ($slug) {
+  $orig_page = get_page_by_path($slug);
+  if (!$orig_page) return false;
+  $translated_page_id = pll_get_post($orig_page->ID);
+  if (!$translated_page_id) return false;
+  return get_page($translated_page_id);
+}
+
 function get_translated_category_by_slug ($slug, $lang = null) {
   $categories = get_categories(array(
     'slug' => $slug,
@@ -681,6 +689,7 @@ function cache_frontpage_ckan_data($dataset_limit, $showcase_limit){
     $datasets = get_ckan_data(CKAN_API_URL.'/action/package_search?sort=date_updated%20desc&rows=' . $dataset_limit)['result'];
     $api_collection = get_ckan_data(CKAN_API_URL."/action/api_collection_show");
 
+    get_recent_dates($datasets);
 }
 
 function get_dataset_count_from_cache(){
@@ -757,7 +766,7 @@ function sort_results($arr) {
   $temp = array();
   foreach ($arr as $key => $row)
   {
-    $temp[$key] = strtotime($row['date_updated'] ? $row['date_updated'] : $row['date']);
+    $temp[$key] = strtotime($row['date_recent'] ? $row['date_recent'] : $row['date']);
   }
 
   array_multisort($temp, SORT_DESC, $arr);
@@ -765,15 +774,26 @@ function sort_results($arr) {
   return $arr;
 }
 
+function get_recent_dates(&$arr){
+    array_walk($arr['results'], function(&$dataset) {
+        $dataset['date_recent'] = $dataset['date_released'];
+        if ($dataset['date_updated'] && $dataset['date_updated'] > $dataset['date_released']) {
+            $dataset['date_recent'] = $dataset['date_updated'];
+        }
+    });
+
+}
+
 function format_ckan_row($row) {
   return array(
     'date' => isset($row['date_created']) ? $row['date_created'] : $row['metadata_created'],
-    'date_updated' => isset($row['date_updated']) ? $row['date_updated'] : $row['metadata_created'],
+    'date_recent' => isset($row['date_recent']) ? $row['date_recent'] : $row['date_released'],
     'type' => array('link' => CKAN_BASE_URL .'/'. get_current_locale_ckan() .'/'. $row['type'], 'label' => $row['type']),
     'link' => CKAN_BASE_URL .'/'. get_current_locale_ckan() .'/'. $row['type'] .'/'. $row['name'],
     'title' => $row['title'],
     'title_translated' => isset($row['title_translated']) ? $row['title_translated'] : (object) array('fi' => $row['title'], 'sv' => $row['title'], 'en_GB' => $row['title']),
-    'notes_translated' => $row['notes_translated']
+    'notes_translated' => $row['notes_translated'],
+    'name' => $row['name']
   );
 }
 
@@ -822,7 +842,7 @@ function get_latest_updates($types = array(), $date = false, $limit = 4) {
       $datasets   = $types['datasets'] ? array_map('format_ckan_row', get_latest_datasets_from_cache($limit)) : [];
       $showcases  = $types['showcases'] ? array_map('format_ckan_row', get_latest_showcases_from_cache($limit)) : [];
   }
-  
+
   $comments   = $types['comments'] ? get_recent_comments($date) : [];
   $posts = $types['posts'] ? get_recent_posts('post', $date) : [];
   $pages = $types['pages'] ? get_recent_posts('page', $date) : [];
@@ -857,6 +877,18 @@ function get_translated($object, $field) {
     return $translated_value;
   }
   return $object[$field];
+}
+
+function get_previous_page_link() {
+  $page = get_query_var( 'page', 1 );
+  $page--;
+  return $page <= 0 ? false : add_query_arg( 'page', $page, 'https://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
+}
+
+function get_next_page_link($total_items, $page_size) {
+  $page = get_query_var( 'page', 1 );
+  $page++;
+  return (($page - 1) * $page_size) >= (int)$total_items ? false : add_query_arg( 'page', $page, 'https://'.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] );
 }
 
 function new_subcategory_hierarchy() { 

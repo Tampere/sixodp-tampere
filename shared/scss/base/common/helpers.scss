@@ -19,6 +19,7 @@
 }
 
 @mixin list-item($margin: $padding-large-vertical) {
+  list-style: none;
   padding: 0;
   background: none;
   margin-bottom: $margin;
@@ -193,5 +194,15 @@
 .desktop-only {
   @media(max-width: $grid-float-breakpoint) {
     display: none !important;
+  }
+}
+
+.border {
+  &-left {
+    border-left: $border-base solid $border-color;
+  }
+
+  &-right {
+    border-right: $border-base solid $border-color;
   }
 }

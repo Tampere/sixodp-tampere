@@ -38,7 +38,7 @@ get_header();
       <div class="wrapper">
         <div class="row">
           <div class="sidebar col-md-3 col-sm-12 col-xs-12">
-            <h3 class="heading-sidebar"><?php _e('Ajankohtaista', 'sixodp') ?></h3>
+            <h3 class="heading-sidebar"><?php _e('Current', 'sixodp') ?></h3>
             <?php
               $categories=get_categories(array(
                 'parent' => $grandparent_id,
@@ -51,7 +51,7 @@ get_header();
                 $child_categories = get_categories(array('parent' => $cat->term_id, 'hide_empty' => false));
               ?>
               <ul>
-                <li class="sidebar-item<?php if ($cat->cat_name === $category->name) { echo '--highlight'; } ?>">
+                <li class="sidebar-item<?php if ($cat->cat_name === $category->name) { echo ' active'; } ?>">
                   <a href="<?php echo get_category_link($cat); ?>">
                     <span class="sidebar-icon-wrapper">
                       <span class="fa fa-long-arrow-right"></span>
@@ -62,7 +62,7 @@ get_header();
                 <?php
                 foreach ($child_categories as $child_cat) :
                 ?>
-                <li class="sidebar-item">
+                <li class="sidebar-item child">
                   <a href="<?php echo get_category_link($child_cat); ?>">
                     <?php echo $child_cat->name; ?>
                   </a>
