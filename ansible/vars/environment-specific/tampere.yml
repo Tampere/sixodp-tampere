@@ -118,7 +118,6 @@ ckan_extensions:
 
 # List of enabled CKAN extensions in load order. Order matters, when templates call super()
 enabled_ckan_extensions:
-    - disqus
     - datastore
     - datapusher
     - text_view
@@ -130,6 +129,7 @@ enabled_ckan_extensions:
     - sixodp_showcase
     - googleanalytics
     - sixodp_ui
+    - disqus
     - datasetcopy
     - sixodp_scheming
     - scheming_datasets
