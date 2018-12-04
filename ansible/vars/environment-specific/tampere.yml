@@ -39,6 +39,7 @@ nginx:
 
 acmetool_hostnames:
   - "{{ public_facing_hostname }}"
+  - "phppgadmin.{{ public_facing_hostname }}"
 
 mysql:
   server:
