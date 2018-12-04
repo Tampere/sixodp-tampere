@@ -10,7 +10,7 @@
   </div>
 
   <div class="container">
-    <?php $updated_items = get_latest_updates(array('comments' => false), false, 8); ?>
+    <?php $updated_items = get_latest_updates(array('comments' => false, 'data_requests' => true, 'showcase_ideas' => true), false, 8); ?>
 
     <div id="latest-updates-carousel" class="carousel slide mobile-only" data-ride="carousel" data-interval="false">
       <div class="carousel-inner" role="listbox">
@@ -37,6 +37,12 @@
                 case 'comment':
                   $meta_label = __('Comment', 'sixodp');
                   break;
+                case 'showcase_idea':
+                  $meta_label = __('Showcase idea', 'sixodp');
+                  break;
+                case 'data_request':
+                  $meta_label = __('Data request', 'sixodp');
+                  break;
                 default:
                   $meta_label = $label;
                   break;
@@ -46,7 +52,7 @@
                 'external_card_class' => 'card-danger',
                 'title' => get_translated($updated_item, 'title'),
                 'meta' => $meta_label,
-                'timestamp' => $updated_item['date_recent'],
+                'timestamp' => isset($updated_item['date_recent']) ? $updated_item['date_recent'] : $updated_item['date'],
                 'notes' => get_translated($updated_item, 'notes'),
                 'url' => $updated_item['link'],
               );
@@ -95,6 +101,12 @@
             case 'comment':
               $meta_label = __('Comment', 'sixodp');
               break;
+            case 'showcase_idea':
+              $meta_label = __('Showcase idea', 'sixodp');
+              break;
+            case 'data_request':
+              $meta_label = __('Data request', 'sixodp');
+              break;
             default:
               $meta_label = $label;
               break;
@@ -104,7 +116,7 @@
             'external_card_class' => 'card-danger',
             'title' => get_translated($updated_item, 'title'),
             'meta' => $meta_label,
-            'timestamp' => $updated_item['date_recent'],
+            'timestamp' => isset($updated_item['date_recent']) ? $updated_item['date_recent'] : $updated_item['date'],
             'notes' => get_translated($updated_item, 'notes'),
             'url' => $updated_item['link'],
           );

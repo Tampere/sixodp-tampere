@@ -14,12 +14,10 @@
 
 if ($_GET['date']) {
   $date = strtotime($_GET['date']);
-
-  $date = $date - 86400 * (date('N', $date) - 1);
 }
-else $date = strtotime("last monday");
+else $date = strtotime("-1 month");
 
-$date = date('Y-m-d', $date);
+$date = date('d.m.Y', $date);
 
 if ($_GET['types']) {
   $types = array(
@@ -63,38 +61,38 @@ get_header(); ?>
         <h1><?php the_title(); ?></h1>
       </div>
     </div>
-    <div class="page-content container centered-content">
       <form action="" method="GET" class="form-container text-center">
-        <label>
-          <input type="checkbox" value="datasets" name="types[]" <?php if ($types['datasets']) echo 'checked="checked"' ?> /> <?php _e('Datasets','sixodp') ?>
-        </label>
-        <label>
-          <input type="checkbox" value="showcases" name="types[]" <?php if ($types['showcases']) echo 'checked="checked"' ?> /> <?php _e('Applications','sixodp') ?>
-        </label>
-        <label>
-          <input type="checkbox" value="comments" name="types[]" <?php if ($types['comments']) echo 'checked="checked"' ?> /> <?php _e('Comments', 'sixodp') ?>
-        </label>
-        <label>
-          <input type="checkbox" value="posts" name="types[]" <?php if ($types['posts']) echo 'checked="checked"' ?> /> <?php _e('Posts', 'sixodp') ?>
-        </label>
-        <label>
-          <input type="checkbox" value="pages" name="types[]" <?php if ($types['pages']) echo 'checked="checked"' ?> /> <?php _e('Pages', 'sixodp') ?>
-        </label>
-        <label>
-          <input type="checkbox" value="data_requests" name="types[]" <?php if ($types['data_requests']) echo 'checked="checked"' ?> /> <?php _e('Data Requests', 'sixodp') ?>
-        </label>
-        <label>
-          <input type="checkbox" value="app_requests" name="types[]" <?php if ($types['app_requests']) echo 'checked="checked"' ?> /> <?php _e('App Requests', 'sixodp') ?>
-        </label>
-        <div class="centered-content text-center">
-          <input type="submit" value="Päivitä" class="btn btn-transparent--inverse" />
-        </div>
+          <label>
+              <input type="checkbox" value="datasets" name="types[]" <?php if ($types['datasets']) echo 'checked="checked"' ?> /> <?php _e('Datasets','sixodp') ?>
+          </label>
+          <label>
+              <input type="checkbox" value="showcases" name="types[]" <?php if ($types['showcases']) echo 'checked="checked"' ?> /> <?php _e('Applications','sixodp') ?>
+          </label>
+          <label>
+              <input type="checkbox" value="comments" name="types[]" <?php if ($types['comments']) echo 'checked="checked"' ?> /> <?php _e('Comments', 'sixodp') ?>
+          </label>
+          <label>
+              <input type="checkbox" value="posts" name="types[]" <?php if ($types['posts']) echo 'checked="checked"' ?> /> <?php _e('Posts', 'sixodp') ?>
+          </label>
+          <label>
+              <input type="checkbox" value="pages" name="types[]" <?php if ($types['pages']) echo 'checked="checked"' ?> /> <?php _e('Pages', 'sixodp') ?>
+          </label>
+          <label>
+              <input type="checkbox" value="data_requests" name="types[]" <?php if ($types['data_requests']) echo 'checked="checked"' ?> /> <?php _e('Data Requests', 'sixodp') ?>
+          </label>
+          <label>
+              <input type="checkbox" value="app_requests" name="types[]" <?php if ($types['app_requests']) echo 'checked="checked"' ?> /> <?php _e('App Requests', 'sixodp') ?>
+          </label>
+              <input type="submit" value="Päivitä" class="btn btn-transparent--inverse" />
       </form>
+    <div class="page-content container centered-content">
+
       <?php
       $updates = get_latest_updates($types, $date, false);
       if (sizeof($updates) == 0) { ?>
-        <h3 class="heading-sidebar text-center"><?php _e('No updates found for selected month.'); ?></h3>
+        <h3 class="heading-sidebar text-center"><?php echo sprintf(__('No updates found between %1$s and %2$s.', 'sixodp'), $date, date('d.m.Y', strtotime($date ."+1 month"))); ?></h3>
       <?php } else { ?>
+          <h3 class="heading-sidebar text-center"><?php echo sprintf(__('Updates between %1$s and %2$s.', 'sixodp'), $date, date('d.m.Y', strtotime($date ."+1 month"))); ?></h3>
       <ul class="items-list">
 
       <?php foreach ( $updates as $index => $item ) :
@@ -106,10 +104,10 @@ get_header(); ?>
             <div class="items-list__type">
               <?php
               if (is_array($item['type'])) {
-                echo '<a href="'. $item['type']['link'] .'">'. $item['type']['label'] .'</a>';
+                echo '<a href="'. $item['type']['link'] .'">'. __($item['type']['label'], 'sixodp') .'</a>';
               }
               else {
-                echo '<span>'. $item['type'] .'</span>';
+                echo '<span>'. __($item['type'], 'sixodp') .'</span>';
               }
               ?>
             </div>
@@ -140,8 +138,8 @@ get_header(); ?>
 
       <div class="navigation pagination">
         <div class="nav-links">
-          <?php echo '<a href="'. $uri['path'] .'?'. http_build_query(array_merge($args, array('date' => date('Y-m-d', strtotime($date .'- 1 WEEK'))))) .'" class="next page-numbers"><span class="fa fa-chevron-left" title="Edellinen"></span></a>'; ?>
-          <?php if ($date != date('Y-m-d', strtotime('last monday'))) echo '<a href="'. $uri['path'] .'?'. http_build_query(array_merge($args, array('date' => date('Y-m-d', strtotime($date .'+ 1 WEEK'))))) .'" class="prev page-numbers"><span class="fa fa-chevron-right" title="Seuraava"></span></a>'; ?>
+          <?php echo '<a href="'. $uri['path'] .'?'. http_build_query(array_merge($args, array('date' => date('Y-m-d', strtotime($date .'- 1 MONTH'))))) .'" class="next page-numbers"><span class="fa fa-chevron-left" title="Edellinen"></span></a>'; ?>
+          <?php if ($date != date('Y-m-d', strtotime('last monday'))) echo '<a href="'. $uri['path'] .'?'. http_build_query(array_merge($args, array('date' => date('Y-m-d', strtotime($date .'+ 1 MONTH'))))) .'" class="prev page-numbers"><span class="fa fa-chevron-right" title="Seuraava"></span></a>'; ?>
         </div>
       </div>
     </div>
