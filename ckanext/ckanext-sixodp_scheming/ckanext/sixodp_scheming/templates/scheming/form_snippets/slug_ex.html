@@ -16,10 +16,16 @@
         <input id="{{ id or name }}" type="{{ type }}" name="{{ name }}" value="{{ value | empty_and_escape }}" placeholder="{{ placeholder }}" {{ form.attributes(attrs) }} />
       {% endif %}
       {% if error and error is iterable %}<span class="error-block">{{ error|join(', ') }}</span>{% endif %}
+        <div class="field-assistive-text">
+            {{ _(field.description) }}
+        </div>
     </div>
   {% endcall %}
 {% endmacro %}
 
+{% if field.entity_type is defined %}
+    {% set entity_type = field.entity_type %}
+{% endif %}
 
 {%- if entity_type == 'dataset' %}
     {%- set controller = 'package' -%}
@@ -30,9 +36,12 @@
 {%- elif entity_type == 'group' -%}
     {%- set controller = 'group' -%}
     {%- set module_placeholder = '<group>' -%}
-{%- elif entity_type == 'collection' -%}
+{%- elif field.entity_type == 'collection' -%}
     {%- set controller = 'ckanext.collection.controller:CollectionController' -%}
     {%- set module_placeholder = '<collection>' -%}
+{%- elif entity_type == 'showcase' -%}
+    {%- set controller = 'ckanext.sixodp_showcase.controller:Sixodp_ShowcaseController' -%}
+    {%- set module_placeholder = '<showcase>' -%}
 {%- endif -%}
 
 {%- set prefix = h.url_for(controller=controller, action='read', id='') -%}
@@ -58,6 +67,3 @@
     is_required=h.scheming_field_required(field)
     ) }}
 
-<div class="field-assistive-text">
-  {{ _(field.description) }}
-</div>

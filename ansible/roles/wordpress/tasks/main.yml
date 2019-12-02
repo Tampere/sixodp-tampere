@@ -10,6 +10,13 @@
     mode: 0755
     checksum: "{{ wp_cli_checksum }}"
 
+- name: Create wp-cli cache
+  file:
+    state: directory
+    path: /var/www/.wp-cli/cache
+    owner: www-data
+    group: www-data
+
 - block:
   - name: Check WP-CLI version
     command: wp cli version --yes --allow-root
@@ -116,7 +123,19 @@
 
   - name: Update WordPress
     command:
-      wp core update --path=/opt/wordpress --minor
+      wp core update --path=/opt/wordpress
+
+  - name: Update WordPress database
+    command:
+      wp core update-db --path=/opt/wordpress
+
+  - name: Update WordPress plugins
+    command:
+      wp plugin update --all --path=/opt/wordpress  --exclude=contact-widgets,wp-trello
+
+  - name: Update WordPress themes
+    command:
+      wp theme update --all --path=/opt/wordpress
 
   become: yes
   become_user: www-data
@@ -200,11 +219,11 @@
 - include: local_plugin.yml
   with_items: "{{ wordpress_local_plugins }}"
 
-- name: Create symbolic link for wordpress tools includes
-  file:
-    src: /opt/wordpress/
-    dest: /vagrant/src
-    state: link
-    force: yes
-  when: deployment_environment_id == "vagrant"
+#- name: Create symbolic link for wordpress tools includes
+#  file:
+#    src: /opt/wordpress/
+#    dest: /vagrant/src
+#   state: link
+#   force: yes
+# when: deployment_environment_id == "vagrant"
 

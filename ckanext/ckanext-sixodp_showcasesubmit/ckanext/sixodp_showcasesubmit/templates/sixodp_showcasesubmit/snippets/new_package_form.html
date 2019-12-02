@@ -44,7 +44,7 @@
         "field_name": "notes_translated",
         "label": _("Description"),
         "preset": "fluent_core_markdown_translated",
-        "form_placeholder": _("eg. A detailed description"),
+        "form_placeholder": _("eg. A detailed description about showcase"),
         "form_languages": ["fi", "en", "sv"],
         "description": " ",
         "only_default_lang_required": true,
@@ -251,7 +251,7 @@
 
     <div class="col-xs-12">
       <h2 class="h3">{{ _('Related datasets') }}</h2>
-      <div class="control-group control-medium">
+      <div class="form-group control-medium">
         <label class="control-label">{{ _('Select one or multiple datasets') }}</label>
         <input id="dataset"
          type="text"
@@ -263,6 +263,7 @@
          data-module-source="/api/util/dataset/autocomplete?incomplete=?"
          data-module-tags="true"
          data-module-key="name"
+         data-module-createtags="false"
          data-module-label="title">
       </div>
     </div>
@@ -309,13 +310,13 @@
   <div class="row row-compensate">
     <div class="col-lg-6 col-md-8 col-sm-6 col-xs-12">
       {% call form.checkbox(
-      'accepted',
-      id='accepted',
+      'harvesting_permission_granted',
+      id='harvesting_permission_granted',
       label=_('I accept that metadata of the application is distributed to other data portals.'),
-      value=data['accepted'],
-      error=errors['accepted'],
+      value='true',
+      error=errors['harvesting_permission_granted'],
       classes=['control-medium'],
-      attrs={'required': 'required'}
+      attrs={'checked': 'checked'}
       )
       %}
       {% endcall %}

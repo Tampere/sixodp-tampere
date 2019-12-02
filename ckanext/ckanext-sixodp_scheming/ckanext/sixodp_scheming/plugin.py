@@ -79,8 +79,9 @@ class Sixodp_SchemingPlugin(plugins.SingletonPlugin, DefaultTranslation):
             'tag_list_output': validators.tag_list_output,
             'repeating_text': validators.repeating_text,
             'repeating_text_output': validators.repeating_text_output,
-            'only_default_lang_required': validators.only_default_lang_required
-            }
+            'only_default_lang_required': validators.only_default_lang_required,
+            'save_to_groups': validators.save_to_groups
+        }
 
     # IActions
     def get_actions(self):
@@ -158,7 +159,6 @@ class Sixodp_SchemingPlugin(plugins.SingletonPlugin, DefaultTranslation):
 
         return data_dict
 
-
     def get_helpers(self):
         return {'call_toolkit_function': helpers.call_toolkit_function,
                 'add_locale_to_source': helpers.add_locale_to_source,
@@ -168,4 +168,8 @@ class Sixodp_SchemingPlugin(plugins.SingletonPlugin, DefaultTranslation):
                 'get_current_date': helpers.get_current_date,
                 'get_package_groups_by_type': helpers.get_package_groups_by_type,
                 'get_translated_or_default_locale': helpers.get_translated_or_default_locale,
-                'show_qa': helpers.show_qa}
+                'show_qa': helpers.show_qa,
+                'scheming_category_list': helpers.scheming_category_list,
+                'check_group_selected': helpers.check_group_selected,
+                'get_field_from_schema': helpers.get_field_from_schema
+                }

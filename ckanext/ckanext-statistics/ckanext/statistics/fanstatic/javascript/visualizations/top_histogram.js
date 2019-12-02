@@ -18,7 +18,7 @@ function TopHistogram (params) {
   self._schema = params.schema;
 
   // Mutable
-  var barHeight = params.barHeight || 75; // Default height
+  var barHeight = params.barHeight || 50; // Default height
   var barCount = 10;
   var contentHeight = barHeight * barCount + self._props.margin.top + self._props.margin.bottom;
 
@@ -44,6 +44,18 @@ function TopHistogram (params) {
   self._renderBase(params.element);
   self.resize(params.width, self._state.barHeight)
 }
+
+TopHistogram.prototype.getUrl = function(category) {
+  var categoryMapping = {
+    'format': ckan.LOCALE_ROOT + '/dataset?res_format=',
+    'dataset': ckan.LOCALE_ROOT + '/dataset/',
+    'category': ckan.LOCALE_ROOT + '/group/',
+    'organization': ckan.LOCALE_ROOT + '/organization/',
+    'app_category': ckan.LOCALE_ROOT + '/showcase?vocab_category_fi='
+  };
+
+  return categoryMapping[category];
+};
 
 
 // Whenever new data arrives
@@ -319,7 +331,8 @@ TopHistogram.prototype._renderHistogram = function (histogramData) {
     .attr('height', self._helpers.yScale.bandwidth());
 
   // Label text
-  barsToAdd.append('text')
+  barsToAdd.append("svg:a").attr("xlink:href", function(d){ return self.getUrl(d.category) + d.id }).attr("target", "_blank")
+  .append('text')
     .attr('x', -6)
     .attr('y', self._helpers.yScale.bandwidth() / 2)
     .attr('text-anchor', 'end')

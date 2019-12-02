@@ -8,6 +8,7 @@
   letter-spacing: 2px;
   font-weight: bold;
   color: #777 !important;
+  padding-top: ($padding-base-vertical + 1);
 
   + .controls {
     textarea {
@@ -21,23 +22,51 @@
 }
 
 form {
-  .control-group {
+  .form-group {
     position: relative;
     margin: $margin-large-vertical 0;
 
     label {
       color: $brand-primary;
+
+      &.ytp-checkbox {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
+        max-width: max-content;
+        font-weight: normal;
+
+        [type='checkbox'] {
+          display: none;
+
+          & + .custom-checkbox {
+            border: 1px solid $border-color;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 25px;
+            height: 25px;
+            margin-right: 15px;
+          }
+
+          &:checked + .custom-checkbox::before {
+            content: '\f00c';
+            font-family: FontAwesome;
+            vertical-align: middle;
+            display: inline-block;
+            font-size: 30px;
+            margin: 0;
+            padding: 0;
+            pointer-events: none;
+          }
+        }
+      }
+
     }
 
     input {
       @extend .form-control;
     }
-  }
-
-  .form-group {
-    display: inline-block;
-    width: 100%;
-    margin: $margin-large-vertical 0;
   }
 
   .form-group-fluent {
@@ -103,5 +132,12 @@ form {
 
   label {
     margin: 0 $base;
+  }
+}
+
+.form-horizontal {
+  .form-group {
+    margin-left: inherit;
+    margin-right: inherit;
   }
 }

@@ -53,14 +53,7 @@ var DatasetSection = function (params) {
       amount: self._texts.amount,
       noDataText: self._texts.noDataText
     },
-    legend: [
-      {
-        title: self._texts.usedInApp,
-      },
-      {
-        title: self._texts.notUsedInApp,
-      },
-    ],
+    legend: [],
     limit: 10, // Before show more button is used
 
     width: params.width,
@@ -80,10 +73,7 @@ var DatasetSection = function (params) {
       amount: self._texts.amount,
       noDataText: self._texts.noDataText
     },
-    legend: [
-      { title: self._texts.usedInApp },
-      { title: self._texts.notUsedInApp }
-    ],
+    legend: [],
     limit: 10, // Before show more button is used
 
     width: params.width,
@@ -103,10 +93,7 @@ var DatasetSection = function (params) {
       amount: self._texts.amount,
       noDataText: self._texts.noDataText
     },
-    legend: [
-      { title: self._texts.usedInApp },
-      { title: self._texts.notUsedInApp }
-    ],
+    legend: [],
     limit: 10, // Before show more button is used
 
     width: params.width,
@@ -129,15 +116,17 @@ DatasetSection.prototype.updateSectionData = function(context, dateRange) {
   var dateQuery = '?start_date=' + moment(dateRange[0]).format('DD-MM-YYYY') + '&end_date=' + moment(dateRange[1]).format('DD-MM-YYYY');
 
   return Promise.all([
-    context.api.get('most_visited_packages' + dateQuery + '&type=dataset')
+    context.api.get('most_visited_packages' + dateQuery + '&type=dataset&limit=15')
     .then(function(response) {
       var datasets = response.packages;
       var result = [];
       for (var index in datasets) {
         var resultItem = {
           name: datasets[index].title_translated[context.locale] || datasets[index].title,
+          id: datasets[index].id,
+          category: 'dataset',
           all: datasets[index].visits,
-          specific: 0
+          specific: datasets[index].visits
         };
 
         result.push(resultItem);
@@ -157,7 +146,7 @@ DatasetSection.prototype.setData = function (context, datasets, categoryDatasets
   self.organizationDatasets.setData(organizationDatasets);
 
   // Update rest of the data implemented with promises
-  self.updateSectionData(context);
+  //self.updateSectionData(context);
 }
 
 

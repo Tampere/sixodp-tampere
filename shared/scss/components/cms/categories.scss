@@ -4,22 +4,17 @@
 
 .categories {
   padding-top: $base*5;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 
-  @media (min-width: $width-xs) {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 }
 
 .category__wrapper {
   padding-left: $base;
   padding-right: $base;
   padding-bottom: $base*1.5;
-
-  @media (min-width: $width-xs) {
-    width: $base*18;
-  }
+  width: $base*18;
 }
 
 .category--box {
