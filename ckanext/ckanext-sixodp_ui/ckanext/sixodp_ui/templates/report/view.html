@@ -1,19 +1,26 @@
 {% ckan_extends %}
 
+{% block title %}{{ _(report.title) }} - {{ _('Reports') }}{% endblock %}
+
+{% block breadcrumb_content %}
+    {{ h.build_nav('reports', _('Reports')) }}
+    {{ h.build_nav('report-org' if '/organization' in request.environ.get('PATH_INFO', '') else 'report', _(report.title), report_name=report_name) }}
+{% endblock %}
+
 {% block offcanvas_button %}{% endblock %}
 
 {% block primary %}
-      <h1>{{ report.title }}</h1>
-      <p>{{ report.description }}</p>
+      <h1>{{ _(report.title) }}</h1>
+      <p>{{ _(report.description) }}</p>
       <p>
           {{ _('Generated') }}: {{ h.report__render_datetime(report_date, '%d/%m/%Y %H:%M') }}
       </p>
       {% if c.userobj.sysadmin %}
       <div class="panel panel-info" style="width=700px">
-          <div class="panel-heading"><strong>Refresh report</strong></div>
+          <div class="panel-heading"><strong>{{_('Refresh report')}}</strong></div>
           <div class="panel-body">
             <form action="" method="POST">
-              <input type="submit" value="Refresh" class="btn btn-info pull-right" style="margin-left: 15px"/>
+              <input type="submit" value="{{_('Refresh')}}" class="btn btn-info pull-right" style="margin-left: 15px"/>
             </form>
             <p>{{ _('As a system administrator you are able to refresh this report on demand by clicking the \'Refresh\' button.') }}</p>
           </div>
