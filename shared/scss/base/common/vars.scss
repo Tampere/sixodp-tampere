@@ -25,16 +25,16 @@ $headings-font-weight: 700;
 $lighten-intensity: 10%;
 $darken-intensity: 20%;
 
-$brand-primary: #36363F;
+$brand-primary: #585857;
 $brand-primary-light: lighten($brand-primary, 10%);
 $brand-primary-dark: darken($brand-primary, 10%);
 $brand-primary-extralight: lighten($brand-primary, 35%);
 $brand-primary-extradark: darken($brand-primary, 15%);
 
-$brand-secondary: #D54B0B;
+$brand-secondary: #C83E36;
 $brand-secondary-light: lighten($brand-secondary, 10%);
 $brand-secondary-dark: darken($brand-secondary, 10%);
-$brand-secondary-extralight: lighten($brand-secondary, 35%);
+$brand-secondary-extralight: #FBE9E7;
 $brand-secondary-extradark: darken($brand-secondary, 15%);
 
 $brand-success: #95ad39;
@@ -63,7 +63,7 @@ $brand-danger-extradark: darken($brand-danger, 15%);
 
 $brand-black: #000000;
 $brand-white: #ffffff;
-$brand-gray: #656d74;
+$brand-gray: $brand-primary;
 $brand-lightgray: #F5F6F7;
 
 $gray-base: $brand-gray;
@@ -80,19 +80,19 @@ $brand-input-color: #656D74;
 
 $text-color: $gray-base;
 $text-muted: $brand-gray;
-$headings-color: $brand-primary;
+$headings-color: $brand-secondary;
 $headings-muted-color: $brand-gray;
 $headings-small-color: $brand-primary;
 $headings-secondary-color: $brand-primary;
 $headings-extra-color: $brand-gray;
 
-$brand-app: $brand-gray;
+$brand-app: $brand-secondary;
 $brand-app-dark: darken($brand-app, 15%);
 
-$brand-dataset: $brand-gray;
+$brand-dataset: $brand-secondary;
 $brand-dataset-dark: darken($brand-dataset, 15%);
 
-$brand-latest: $brand-gray;
+$brand-latest: $brand-secondary;
 $brand-latest-dark: darken($brand-latest, 15%);
 
 
@@ -110,7 +110,7 @@ $btn-main-color: $brand-white;
 $btn-main-active-bg: $brand-secondary-light;
 $btn-main-active-color: $brand-white;
 
-$category-box-bg: $brand-primary;
+$category-box-bg: $brand-secondary;
 $category-box-icon-color: $brand-white;
 $category-box-text-color: $brand-white;
 $category-box-count-color: $brand-white;
@@ -129,7 +129,7 @@ $banner-heading-color: $brand-white;
 $banner-text-color: $brand-white;
 
 $featured-bg: $brand-lightgray;
-$showcase-card-bg: $brand-primary;
+$showcase-card-bg: $brand-secondary;
 $showcase-card-heading-color: $brand-white;
 $showcase-card-text-color: $brand-white;
 
@@ -153,9 +153,9 @@ $card-max-width: 250px;
 $card-content-height: 110px;
 $card-heading-rows: 3;
 
-$card-bg: $brand-lightgray;
+$card-bg: $brand-secondary-extralight;
 $card-bg-active: $brand-white;
-$card--image-bg: $brand-primary-extralight;
+$card--image-bg: $brand-secondary-extralight;
 $card--image-bg-active: $brand-white;
 
 $card-text-color: $gray-dark;
@@ -294,7 +294,7 @@ $breadcrumb-color: $headings-muted-color;
 $breadcrumb-separator: "/";
 
 // Misc component colors
-$badge-background-color: $brand-primary;
+$badge-background-color: $brand-secondary;
 $badge-background-color-active: $brand-primary;
 $image-slider-background-color: $navbar-default-bg;
 $label-text-color: $brand-white;
