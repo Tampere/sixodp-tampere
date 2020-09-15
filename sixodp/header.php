@@ -34,7 +34,8 @@
   <?php $notifications = get_posts(array('post_type' => 'notification')); ?>
   <?php $extra_classes = count($notifications) > 0 ? ' has-notification' : '' ?>
   <div class="nav-wrapper<?php echo $extra_classes ?>">
-    <?php $notifications = get_posts(array('post_type' => 'notification')); ?>
+
+      <?php $notifications = get_posts(array('post_type' => 'notification')); ?>
     <?php if ( count($notifications) > 0 && ($notifications[0]->post_title !== '' || $notifications[0]->post_content !== '') ) : ?>
       <?php
         $type = get_post_meta( $notifications[0]->ID, 'type', true );
@@ -58,11 +59,8 @@
 
     <?php require_once('partials/nav.php'); ?>
   </div>
-
-  <div class="logos">
-    <a href="<?php echo site_url(); ?>" class="logo--brand">
-      <img src="<?php echo assets_url(); ?>/images/hero_logo.png" />
-    </a>
+  <div class="logos" role="banner">
+      <img src="<?php echo assets_url(); ?>/images/hero_logo.png" alt="<?php _e('Home', 'sixodp') ?>" />
     <div class="logos--eu">
       <div class="logo--erdf">
         <img src="<?php echo assets_url(); ?>/images/EU_ERDF_FI.png" alt="European Regional Development Fund logo">

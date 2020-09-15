@@ -1,23 +1,24 @@
 # Translations template for ckanext-sixodp_ui.
-# Copyright (C) 2019 ORGANIZATION
+# Copyright (C) 2020 ORGANIZATION
 # This file is distributed under the same license as the ckanext-sixodp_ui
 # project.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
 # 
 # Translators:
 # Mikko Nieminen <mikko.nieminen@gofore.com>, 2017
-# Hami Kekkonen <hami.kekkonen@hel.fi>, 2019
 # Joonas Dukpa, 2019
 # Zharktas <jari-pekka.voutilainen@gofore.com>, 2019
+# Heidi Lammi-Mihaljov <heidi.lammi-mihaljov@gofore.com>, 2020
+# Hami Kekkonen <hami.kekkonen@hel.fi>, 2020
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: ckanext-sixodp_ui 0.0.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-12-12 10:17+0000\n"
+"POT-Creation-Date: 2020-09-11 11:35+0000\n"
 "PO-Revision-Date: 2017-01-23 14:12+0000\n"
-"Last-Translator: Zharktas <jari-pekka.voutilainen@gofore.com>, 2019\n"
+"Last-Translator: Hami Kekkonen <hami.kekkonen@hel.fi>, 2020\n"
 "Language-Team: Finnish (https://www.transifex.com/6aika-dataportal/teams/68018/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,6 +30,10 @@ msgstr ""
 #: ckanext/sixodp_ui/helpers.py:176
 msgid "Dataset not found"
 msgstr "Tietoaineistoa ei löytynyt"
+
+#: ckanext/sixodp_ui/helpers.py:287
+msgid "Show submenu for "
+msgstr "Näytä alavalikko"
 
 #: ckanext/sixodp_ui/plugin.py:218 ckanext/sixodp_ui/plugin.py:229
 #: ckanext/sixodp_ui/plugin.py:239
@@ -43,7 +48,7 @@ msgstr "Alueet"
 #: ckanext/sixodp_ui/plugin.py:220 ckanext/sixodp_ui/plugin.py:231
 #: ckanext/sixodp_ui/plugin.py:241
 #: ckanext/sixodp_ui/templates/package/group_list.html:5
-#: ckanext/sixodp_ui/templates/package/read_base.html:37
+#: ckanext/sixodp_ui/templates/package/read_base.html:41
 msgid "Groups"
 msgstr "Kategoriat"
 
@@ -56,7 +61,7 @@ msgstr "Organisaatiot"
 
 #: ckanext/sixodp_ui/plugin.py:222 ckanext/sixodp_ui/plugin.py:233
 #: ckanext/sixodp_ui/plugin.py:243
-#: ckanext/sixodp_ui/templates/package/read_base.html:38
+#: ckanext/sixodp_ui/templates/package/read_base.html:42
 msgid "Collections"
 msgstr "Aineistokokonaisuudet"
 
@@ -313,6 +318,7 @@ msgstr "Muokkaa"
 #: ckanext/sixodp_ui/fanstatic/javascript/modules/table-toggle-more.js:9
 #: ckanext/sixodp_ui/fanstatic/javascript/modules/table-toggle-more.min.js:1
 #: ckanext/sixodp_ui/templates/package/resource_read.html:130
+#: ckanext/sixodp_ui/templates/snippets/facet_list.html:36
 msgid "Show more"
 msgstr "Näytä lisää"
 
@@ -336,6 +342,10 @@ msgstr "Ylläpito"
 #: ckanext/sixodp_ui/templates/footer.html:33
 msgid "Follow us"
 msgstr "Seuraa meitä"
+
+#: ckanext/sixodp_ui/templates/sixodp_header.html:26
+msgid "Skip to content"
+msgstr "Siirry sisältöön"
 
 #: ckanext/sixodp_ui/templates/admin/config.html:7
 msgid "Service message"
@@ -467,6 +477,12 @@ msgstr "Nimen mukaan nousevasti"
 msgid "Name Descending"
 msgstr "Nimen mukaan laskevasti"
 
+#: ckanext/sixodp_ui/templates/group/read.html:6
+#: ckanext/sixodp_ui/templates/organization/read.html:30
+#: ckanext/sixodp_ui/templates/package/search.html:84
+msgid "Filter results"
+msgstr "Suodata tuloksia"
+
 #: ckanext/sixodp_ui/templates/group/read_base.html:4
 #: ckanext/sixodp_ui/templates/group/snippets/info.html:12
 #: ckanext/sixodp_ui/templates/organization/bulk_process.html:14
@@ -475,7 +491,7 @@ msgstr "Tietoaineistot"
 
 #: ckanext/sixodp_ui/templates/group/read_base.html:5
 #: ckanext/sixodp_ui/templates/package/activity.html:3
-#: ckanext/sixodp_ui/templates/package/read_base.html:35
+#: ckanext/sixodp_ui/templates/package/read_base.html:39
 msgid "Activity Stream"
 msgstr "Aktiivisuusvirta"
 
@@ -511,6 +527,25 @@ msgid ""
 msgstr ""
 "Kategorioiden avulla datoja ryhmitellään eri teemojen mukaan. Yksi aineisto "
 "voi kuulua useampaan kategoriaan."
+
+#: ckanext/sixodp_ui/templates/home/snippets/sixodp_language-changer.html:6
+msgid "In Finnish"
+msgstr "Suomeksi"
+
+#: ckanext/sixodp_ui/templates/home/snippets/sixodp_language-changer.html:12
+msgid "In English"
+msgstr "Englanniksi"
+
+#: ckanext/sixodp_ui/templates/home/snippets/sixodp_language-changer.html:18
+msgid "In Swedish"
+msgstr "Ruotsiksi"
+
+#: ckanext/sixodp_ui/templates/home/snippets/sixodp_navbar_search.html:4
+#: ckanext/sixodp_ui/templates/home/snippets/sixodp_navbar_search.html:11
+#: ckanext/sixodp_ui/templates/snippets/search_form.html:5
+#: ckanext/sixodp_ui/templates/snippets/search_input.html:18
+msgid "Search"
+msgstr "Hae"
 
 #: ckanext/sixodp_ui/templates/home/snippets/sixodp_profile.html:12
 msgid "Sysadmin settings"
@@ -604,7 +639,7 @@ msgid "Draft"
 msgstr "Luonnos"
 
 #: ckanext/sixodp_ui/templates/organization/bulk_process.html:76
-#: ckanext/sixodp_ui/templates/package/read_base.html:18
+#: ckanext/sixodp_ui/templates/package/read_base.html:20
 #: ckanext/sixodp_ui/templates/snippets/package_item.html:70
 msgid "Deleted"
 msgstr "Poistettu"
@@ -692,6 +727,7 @@ msgstr ""
 "-dokumentaatio</a>. "
 
 #: ckanext/sixodp_ui/templates/package/new_view.html:28
+#: ckanext/sixodp_ui/templates/package/snippets/resource_view.html:48
 msgid "Preview"
 msgstr "Esikatselu"
 
@@ -701,16 +737,16 @@ msgid "Add"
 msgstr "Lisää"
 
 #: ckanext/sixodp_ui/templates/package/read.html:43
-#: ckanext/sixodp_ui/templates/package/read_base.html:71
+#: ckanext/sixodp_ui/templates/package/read_base.html:75
 #: ckanext/sixodp_ui/templates/package/resource_read.html:185
 msgid "Subscribe for dataset updates"
 msgstr "Tilaa ilmoitukset muutoksista"
 
-#: ckanext/sixodp_ui/templates/package/read_base.html:33
+#: ckanext/sixodp_ui/templates/package/read_base.html:37
 msgid "Dataset"
 msgstr "Tietoaineisto"
 
-#: ckanext/sixodp_ui/templates/package/read_base.html:34
+#: ckanext/sixodp_ui/templates/package/read_base.html:38
 #: ckanext/sixodp_ui/templates/showcase/edit_base.html:5
 #: ckanext/sixodp_ui/templates/showcase/edit_base.html:12
 #: ckanext/sixodp_ui/templates/showcase/edit_base.html:16
@@ -732,7 +768,7 @@ msgstr "API-osoite"
 
 #: ckanext/sixodp_ui/templates/package/resource_read.html:44
 #: ckanext/sixodp_ui/templates/package/snippets/resource_item.html:36
-#: ckanext/sixodp_ui/templates/report/view.html:40
+#: ckanext/sixodp_ui/templates/report/view.html:47
 msgid "Download"
 msgstr "Lataa"
 
@@ -782,6 +818,7 @@ msgid "Source: <a href=\"%(url)s\">%(dataset)s</a>"
 msgstr "Lähde: <a href=\"%(url)s\">%(dataset)s</a>"
 
 #: ckanext/sixodp_ui/templates/package/resource_read.html:131
+#: ckanext/sixodp_ui/templates/snippets/facet_list.html:39
 msgid "Show less"
 msgstr "Näytä vähemmän"
 
@@ -874,10 +911,6 @@ msgstr "Luotu"
 #: ckanext/sixodp_ui/templates/package/snippets/resource_item.html:28
 msgid "Data API"
 msgstr "Data API"
-
-#: ckanext/sixodp_ui/templates/package/snippets/info.html:20
-msgid "Rating"
-msgstr "Arvosana"
 
 #: ckanext/sixodp_ui/templates/package/snippets/package_form.html:5
 msgid ""
@@ -1041,6 +1074,8 @@ msgid "A view is a representation of the data held against a resource"
 msgstr " Näkymässä voi mm. esikatsella resurssin sisältämää dataa."
 
 #: ckanext/sixodp_ui/templates/report/index.html:5
+#: ckanext/sixodp_ui/templates/report/view.html:3
+#: ckanext/sixodp_ui/templates/report/view.html:6
 msgid "Reports"
 msgstr "Raportit"
 
@@ -1048,33 +1083,33 @@ msgstr "Raportit"
 msgid "View Report"
 msgstr "Avaa raportti"
 
-#: ckanext/sixodp_ui/templates/report/view.html:9
+#: ckanext/sixodp_ui/templates/report/view.html:16
 msgid "Generated"
 msgstr "Generoitu"
 
-#: ckanext/sixodp_ui/templates/report/view.html:13
+#: ckanext/sixodp_ui/templates/report/view.html:20
 msgid "Refresh report"
 msgstr "Päivitä raportti"
 
-#: ckanext/sixodp_ui/templates/report/view.html:16
+#: ckanext/sixodp_ui/templates/report/view.html:23
 msgid "Refresh"
 msgstr "Päivitä"
 
-#: ckanext/sixodp_ui/templates/report/view.html:18
+#: ckanext/sixodp_ui/templates/report/view.html:25
 msgid ""
 "As a system administrator you are able to refresh this report on demand by "
 "clicking the 'Refresh' button."
 msgstr "Voit päivittää tämän raportin nyt painamalla 'Päivitä'."
 
-#: ckanext/sixodp_ui/templates/report/view.html:24
+#: ckanext/sixodp_ui/templates/report/view.html:31
 msgid "Options"
 msgstr "Valinnat"
 
-#: ckanext/sixodp_ui/templates/report/view.html:45
+#: ckanext/sixodp_ui/templates/report/view.html:52
 msgid "Results"
 msgstr "Tulokset"
 
-#: ckanext/sixodp_ui/templates/report/view.html:47
+#: ckanext/sixodp_ui/templates/report/view.html:54
 msgid "No results found."
 msgstr "Tuloksia ei löytynyt"
 
@@ -1130,15 +1165,7 @@ msgstr "Avaa sivu"
 msgid "Search showcases..."
 msgstr "Hae sovelluksia..."
 
-#: ckanext/sixodp_ui/templates/snippets/facet_list.html:27
-msgid "Show More {facet_type}"
-msgstr "Näytä lisää {facet_type}"
-
-#: ckanext/sixodp_ui/templates/snippets/facet_list.html:30
-msgid "Show Only Popular {facet_type}"
-msgstr "Näytä vain yleisimmät {facet_type}"
-
-#: ckanext/sixodp_ui/templates/snippets/facet_list.html:34
+#: ckanext/sixodp_ui/templates/snippets/facet_list.html:43
 msgid "There are no {facet_type} that match this search"
 msgstr "Hakuun ei liity {facet_type} -tyyppistä sisältöä"
 
@@ -1170,26 +1197,30 @@ msgstr "Tämä tietoaineisto täyttää avoimen datan määritelmän."
 msgid "This dataset has no description"
 msgstr "Tietoaineistolla ei ole kuvausta"
 
-#: ckanext/sixodp_ui/templates/snippets/page_highlight_item.html:21
-msgid "This showcase has no description"
-msgstr "Sovelluksella ei ole kuvausta"
-
-#: ckanext/sixodp_ui/templates/snippets/page_highlight_item.html:27
+#: ckanext/sixodp_ui/templates/snippets/page_highlight_item.html:8
 msgid "View {showcase_title}"
 msgstr "Näytä {showcase_title}"
 
-#: ckanext/sixodp_ui/templates/snippets/page_highlight_item.html:29
-msgid "Read more"
-msgstr "Lue lisää"
+#: ckanext/sixodp_ui/templates/snippets/page_highlight_item.html:25
+msgid "This showcase has no description"
+msgstr "Sovelluksella ei ole kuvausta"
 
 #: ckanext/sixodp_ui/templates/snippets/search_form.html:9
 msgid "Submit"
 msgstr "Lähetä"
 
+#: ckanext/sixodp_ui/templates/snippets/search_form.html:19
+msgid "Sort"
+msgstr "Lajittele"
+
 #: ckanext/sixodp_ui/templates/snippets/search_form.html:27
 #: ckanext/sixodp_ui/templates/snippets/search_form_without_input.html:43
 msgid "Go"
 msgstr "Siirry"
+
+#: ckanext/sixodp_ui/templates/snippets/search_form_without_input.html:36
+msgid "Sort results"
+msgstr "Järjestä tulokset"
 
 #: ckanext/sixodp_ui/templates/snippets/search_form_without_input.html:61
 #: ckanext/sixodp_ui/templates/snippets/tag_list.html:4
@@ -1207,10 +1238,6 @@ msgid ""
 " <p><strong>There was an error while searching.</strong> Please try "
 "again.</p> "
 msgstr " <p><strong>Haussa tapahtui virhe.</strong> Yritä uudelleen.</p> "
-
-#: ckanext/sixodp_ui/templates/snippets/search_input.html:18
-msgid "Search"
-msgstr "Hae"
 
 #: ckanext/sixodp_ui/templates/snippets/sixodp_offcanvas-filter-button.html:2
 msgid "Filters"

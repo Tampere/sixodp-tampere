@@ -24,8 +24,8 @@
               'external_card_class' => '',
               'image_url' => CKAN_BASE_URL . "/uploads/showcase/".$showcase['featured_image'],
               'title' => get_translated($showcase, 'title'),
-              'show_rating' => true,
-              'date_updated' => $showcase['date_updated'],
+              'show_rating' => false,
+              'date_updated' => $showcase['metadata_created'],
               'notes' => get_translated($showcase, 'notes'),
               'url' => CKAN_BASE_URL . '/' . $lang . "/showcase/" . $showcase['name'],
               'package_id' => $showcase['id']
@@ -60,8 +60,8 @@
             'external_card_class' => '',
             'image_url' => CKAN_BASE_URL . "/uploads/showcase/".$showcase['featured_image'],
             'title' => get_translated($showcase, 'title'),
-            'show_rating' => true,
-            'date_updated' => $showcase['date_updated'],
+            'show_rating' => false,
+            'date_updated' => $showcase['metadata_created'],
             'notes' => get_translated($showcase, 'notes'),
             'url' => CKAN_BASE_URL . '/' . $lang . "/showcase/" . $showcase['name'],
             'package_id' => $showcase['id']
@@ -74,7 +74,7 @@
 
   <div class="container">
     <div class="btn-container">
-      <h4 class="heading--small"><?php _e('Do you have a dataset or an application to share?', 'sixodp');?> <?php _e('Share it!', 'sixodp');?></h4>
+      <h3 class="heading--small"><?php _e('Do you have a dataset or an application to share?', 'sixodp');?> <?php _e('Share it!', 'sixodp');?></h3>
     </div>
     <div class="row btn-container">
       <a href="<?php echo CKAN_BASE_URL.'/'.get_current_locale_ckan() ?>/submit-showcase" class="btn btn-app btn--banner-jaa"><?php _e('Submit an application', 'sixodp');?></a>

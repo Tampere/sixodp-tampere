@@ -48,6 +48,20 @@ if (isset($_POST['showcase_idea_submit_form'])) {
     ));
 
     $welcome_page = true;
+    $lang = get_current_locale();
+    if ($lang == 'fi') {
+        wp_redirect('/kiitos');
+    }
+    elseif ($lang == 'sv') {
+        wp_redirect('/' . lang . '/tack');
+    }
+    elseif ($lang == 'en_gb') {
+        wp_redirect('/'. $lang. '/thank-you');
+    }
+    else{
+        wp_redirect('/kiitos');
+    }
+
   }
 }
 
@@ -71,7 +85,7 @@ get_header(); ?>
         <h1><?php _e('New Showcase idea', 'sixodp') ?></h1>
       </div>
     </div>
-    <div class="page-content container">
+    <div id="maincontent" class="page-content container">
       <div class="wrapper">
         <div class="row">
           <div class="centered-content">

@@ -85,14 +85,14 @@ get_header(); ?>
           </label>
               <input type="submit" value="<?php _e('Update', 'sixodp') ?>" class="btn btn-transparent--inverse" />
       </form>
-    <div class="page-content container centered-content">
+    <div id="maincontent" class="page-content container centered-content">
 
       <?php
       $updates = get_latest_updates($types, $date, false);
       if (sizeof($updates) == 0) { ?>
-        <h3 class="heading-sidebar text-center"><?php echo sprintf(__('No updates found between %1$s and %2$s.', 'sixodp'), $date, date('d.m.Y', strtotime($date ."+1 month"))); ?></h3>
+        <h2 class="heading-sidebar text-center"><?php echo sprintf(__('No updates found between %1$s and %2$s.', 'sixodp'), $date, date('d.m.Y', strtotime($date ."+1 month"))); ?></h2>
       <?php } else { ?>
-          <h3 class="heading-sidebar text-center"><?php echo sprintf(__('Updates between %1$s and %2$s.', 'sixodp'), $date, date('d.m.Y', strtotime($date ."+1 month"))); ?></h3>
+          <h2 class="heading-sidebar text-center"><?php echo sprintf(__('Updates between %1$s and %2$s.', 'sixodp'), $date, date('d.m.Y', strtotime($date ."+1 month"))); ?></h2>
       <ul class="items-list">
 
       <?php foreach ( $updates as $index => $item ) :
@@ -111,11 +111,11 @@ get_header(); ?>
               }
               ?>
             </div>
-            <h4 class="items-list__title">
+            <h3 class="items-list__title">
               <a class="items-list__link" href="<?php echo $item['link']?>">
                 <?php echo get_translated($item, 'title'); ?>
               </a>
-            </h4>
+            </h3>
             <div class="items-list__body">
               <div class="items-list__metadata">
                 <div class="items-list__time">
