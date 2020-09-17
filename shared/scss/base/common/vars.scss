@@ -19,7 +19,7 @@ $headings-font-family: $font-heading;
 $letter-spacing: 1.0px;
 $letter-spacing-xs: 0.7px;
 
-$headings-font-weight: 700;
+$headings-font-weight: 900;
 
 // Brand-colors
 $lighten-intensity: 10%;
@@ -92,7 +92,7 @@ $brand-app-dark: darken($brand-app, 15%);
 $brand-dataset: $brand-secondary;
 $brand-dataset-dark: darken($brand-dataset, 15%);
 
-$brand-latest: $brand-secondary;
+$brand-latest: $brand-primary;
 $brand-latest-dark: darken($brand-latest, 15%);
 
 
@@ -229,7 +229,7 @@ $navbar-offcanvas-link-color: $brand-primary;
 $navbar-offcanvas-link-color-hover: $brand-white;
 $navbar-offcanvas-link-color-active: $brand-white;
 $navbar-offcanvas-border-color: $border-color;
-$navbar-offcanvas-heading-color: $brand-primary;
+$navbar-offcanvas-heading-color: $brand-secondary;
 
 // Filters
 $filter-bg: transparent;
