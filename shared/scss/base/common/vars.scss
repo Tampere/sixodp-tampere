@@ -19,7 +19,7 @@ $headings-font-family: $font-heading;
 $letter-spacing: 1.0px;
 $letter-spacing-xs: 0.7px;
 
-$headings-font-weight: 900;
+$headings-font-weight: 700;
 
 // Brand-colors
 $lighten-intensity: 10%;
@@ -277,7 +277,7 @@ $stages-text-color-active: $brand-white;
 $stages-text-color-filled: $brand-white;
 
 // Sidebar (CMS only)
-$sidebar-heading-color: $gray-light;
+$sidebar-heading-color: $brand-secondary;
 $sidebar-item-bg: $brand-white;
 $sidebar-item-bg--highlight: $gray-lighter;
 $sidebar-item-bg-active: $brand-secondary;
