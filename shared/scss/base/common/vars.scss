@@ -100,11 +100,11 @@ $brand-latest-dark: darken($brand-latest, 15%);
 $main-logo-width: 200px;
 $hero-main-heading-color: $brand-white;
 $hero-secondary-heading-color: $brand-white;
-$hero-overlay-start: $brand-warning-extralight;
-$hero-overlay-stop: $brand-warning-extralight;
-$hero-overlay-opacity-start: 0.2;
-$hero-overlay-opacity-center: 0.2;
-$hero-overlay-opacity-end: 0.3;
+$hero-overlay-start: $brand-black;
+$hero-overlay-stop: $brand-black;
+$hero-overlay-opacity-start: 0.0;
+$hero-overlay-opacity-center: 0.3;
+$hero-overlay-opacity-end: 0.6;
 $btn-main-bg: $brand-secondary;
 $btn-main-color: $brand-white;
 $btn-main-active-bg: $brand-secondary-light;
@@ -243,7 +243,7 @@ $filter-hover: $text-color;
 // Links
 $link-color: $brand-secondary;
 $link-color-active: lighten($link-color, 20%);
-$link-secondary-color: $brand-success;
+$link-secondary-color: $brand-secondary;
 $link-secondary-color-active: lighten($link-secondary-color, 20%);
 
 // Rating (ckan extension)
