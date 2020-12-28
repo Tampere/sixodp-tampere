@@ -43,7 +43,7 @@
 }
 
 .btn-success {
-  @include btn-colors($btn-success-bg, $btn-success-color, $btn-success-bg);
+  @include btn-colors($btn-main-bg, $btn-main-color, $btn-main-bg);
 }
 
 .btn-secondary {
