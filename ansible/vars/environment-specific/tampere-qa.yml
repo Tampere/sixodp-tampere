@@ -34,11 +34,18 @@ postgres:
 
 nginx:
   use_ssl_certificate: true
-  use_selfsigned_certificate: true
+  use_selfsigned_certificate: false
   fqdn_common_part: dataportaali.com
 
 acmetool_hostnames:
   - "{{ public_facing_hostname }}"
+
+certbot_admin_email: dataportaali-dev@gofore.com
+certbot_create_if_missing: true
+certbot_certs:
+  - domains:
+      - "{{ public_facing_hostname }}"
+
 
 mysql:
   server:
