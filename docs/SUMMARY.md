@@ -1,8 +1,15 @@
 # Table of contents
 
-* [Dataportaalin tekninen dokumentaatio](README.md)
+* [Technical documentation for data portal](README.md)
 
-## Arkkitehtuuri
+## Architecture
 
-* [Yleistä](arkkitehtuuri/yleistae.md)
+* [General](architecture/yleistae.md)
+* [AWS](architecture/aws.md)
+* [WordPress](architecture/wordpress.md)
+* [CKAN](architecture/ckan.md)
+
+## Content management
+
+* [Untitled](content-management/untitled.md)
 
