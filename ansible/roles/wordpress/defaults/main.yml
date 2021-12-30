@@ -12,14 +12,16 @@ wordpress_plugins:
   - disqus-comment-system
   - wp-recaptcha-integration
   - wordpress-importer
-  - wp-user-avatar
   - better-search-replace
+  - wp-user-avatars
   - classic-editor
   - wordpress-seo
   - wordfence
+  - cookiehub
 
 removed_wordpress_plugins:
   - addthis
+  - wp-user-avatar
 
 polylang_languages: 
   - { name: 'Suomi', code: 'fi', locale: 'fi', flag: 'fi' }
