@@ -87,9 +87,7 @@ ckan_admins:
   - "{{ ckan_users.harvest.username }}"
 
 ckan_extensions:
-  - ckanext-sixodp_routes
-  - ckanext-sixodp_scheming
-  - ckanext-sixodp_ui
+  - ckanext-sixodp
   - ckanext-sixodp_showcase
   - ckanext-scheming
   - ckanext-showcase
@@ -114,6 +112,7 @@ ckan_extensions:
   - ckanext-sixodp_showcasesubmit
   #- ckanext-googleanalytics
   - ckanext-geoview
+  - ckanext-sentry
 
 # List of enabled CKAN extensions in load order. Order matters, when templates call super()
 enabled_ckan_extensions:
@@ -128,24 +127,21 @@ enabled_ckan_extensions:
     #- googleanalytics
     - qa
     - archiver
-    - sixodp_ui
+    - collection
+    - reminder
+    - datasetcopy
+    - sixodp
     - disqus
     - datastore
-    - datasetcopy
-    - sixodp_scheming
     - scheming_datasets
     - scheming_groups
     - fluent
     - report
     - publisher_activity_report
     #- rating
-    - sixodp_routes
-    - sixodp_feed
     - hierarchy_display
     - hierarchy_form
-    - reminder
     - editor
-    - collection
     #- spatial_metadata
     #- spatial_query
     - datasubmitter
@@ -156,6 +152,7 @@ enabled_ckan_extensions:
     - sixodp_showcasesubmit
     - resource_proxy
     - geo_view
+    - sentry
 
 
 enabled_ckan_aws_extensions: cloudstorage

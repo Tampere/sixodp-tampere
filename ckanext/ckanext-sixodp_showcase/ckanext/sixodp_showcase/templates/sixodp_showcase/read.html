@@ -7,7 +7,7 @@
 
 {% block links -%}
   {{ super() }}
-  <link rel="alternate" type="application/rdf+xml" href="{{ h.url_for(controller='ckanext.showcase.controller:ShowcaseController', action='read', id=pkg.id, format='rdf', qualified=True) }}"/>
+  <link rel="alternate" type="application/rdf+xml" href="{{ h.url_for('showcase.read', id=pkg.id, format='rdf', qualified=True) }}"/>
 {% endblock -%}
 
 {% block head_extras -%}
@@ -38,8 +38,8 @@
               {% snippet 'snippets/home_breadcrumb_item.html' %}
               {% block breadcrumb_content %}
                 {% set showcase = pkg.title or pkg.name %}
-                <li>{{ h.nav_link(_('Showcases'), controller='ckanext.showcase.controller:ShowcaseController', action='search', highlight_actions = 'new index') }}</li>
-                <li{{ self.breadcrumb_content_selected() }}>{% link_for showcase|truncate(30), controller='ckanext.showcase.controller:ShowcaseController', action='read', id=pkg.name %}</li>
+                <li>{{ h.nav_link(_('Showcases'), named_route='sixodp_showcase.search', highlight_actions = 'new index') }}</li>
+                <li {{ self.breadcrumb_content_selected() }}>{% link_for showcase|truncate(30), 'showcase.read', id=pkg.name %}</li>
               {% endblock %}
             </ol>
           {% endif %}
@@ -68,7 +68,6 @@
         {% block page_subheading %}
           {% set lang = h.get_lang_prefix() %}
           <div class="page-subheading">
-
             {% set showcase_categories = pkg.category.get(lang) %}
             {% if showcase_categories %}
               <span class="subheading-section">
@@ -76,12 +75,14 @@
                  {{ category }}{% if not loop.last %}, {% endif %}
                 {% endfor %}
               </span>
+            {% endif %}
 
+            {% if pkg.keywords %}
             <span class="subheading-section">
               {% snippet 'sixodp_showcase/snippets/tags.html', tags=pkg.keywords %}
             </span>
+            {% endif %}
           </div>
-        {% endif %}
 
         <div class="page-subheading">
             {% if pkg.author %}
@@ -123,7 +124,7 @@
 
 {% if h.check_access('ckanext_showcase_update', {'id':pkg.id }) %}
     <div class="actions">
-    {% link_for _('Manage'), controller='ckanext.sixodp_showcase.controller:Sixodp_ShowcaseController', action='edit', id=pkg.name, class_='btn', icon='wrench' %}
+    {% link_for _('Manage'), named_route='sixodp_showcase.edit', id=pkg.name, class_='btn', icon='wrench' %}
     </div>
   {% endif %}
 
@@ -172,7 +173,7 @@
       {% if author_showcases %}
         <h2 class="module-heading">{{ _('More from the author') }}</h2>
         {{ h.snippet('sixodp_showcase/snippets/related_list.html', packages=author_showcases, current=pkg.id) }}
-      <a href="{{ h.url_for(controller='ckanext.sixodp_showcase.controller:Sixodp_ShowcaseController', action='search', author=pkg.author) }}"
+      <a href="{{ h.url_for('sixodp_showcase.search', author=pkg.author) }}"
         class="btn btn-block btn-transparent--inverse btn-list-item">
         {{ _('Show all from this author') }}
       </a>
@@ -221,7 +222,7 @@
       <section class="module module-narrow">
         <h2 class="module-heading author-showcases">{{ _('More from the author') }}</h2>
         {{ h.snippet('sixodp_showcase/snippets/related_list.html', packages=author_showcases, current=pkg.id) }}
-        <a href="{{ h.url_for(controller='ckanext.sixodp_showcase.controller:Sixodp_ShowcaseController', action='search', author=pkg.author) }}"
+        <a href="{{ h.url_for('sixodp_showcase.search', author=pkg.author) }}"
         class="btn btn-block btn-transparent--inverse btn-list-item">
           {{ _('Show all from this author') }}
         </a>

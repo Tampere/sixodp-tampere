@@ -101,9 +101,7 @@ ckan_admins:
   - "{{ ckan_users.harvest.username }}"
 
 ckan_extensions:
-  - ckanext-sixodp_routes
-  - ckanext-sixodp_scheming
-  - ckanext-sixodp_ui
+  - ckanext-sixodp
   - ckanext-sixodp_showcase
   - ckanext-scheming
   - ckanext-showcase
@@ -128,6 +126,7 @@ ckan_extensions:
   - ckanext-sixodp_showcasesubmit
   - ckanext-googleanalytics
   - ckanext-geoview
+  - ckanext-sentry
 
 # List of enabled CKAN extensions in load order. Order matters, when templates call super()
 enabled_ckan_extensions:
@@ -142,24 +141,21 @@ enabled_ckan_extensions:
     - googleanalytics
     - qa
     - archiver
-    - sixodp_ui
+    - collection
+    - reminder
+    - datasetcopy
+    - sixodp
     - disqus
     - datastore
-    - datasetcopy
-    - sixodp_scheming
     - scheming_datasets
     - scheming_groups
     - fluent
     - report
     - publisher_activity_report
     #- rating
-    - sixodp_routes
-    - sixodp_feed
     - hierarchy_display
     - hierarchy_form
-    - reminder
     - editor
-    - collection
     #- spatial_metadata
     #- spatial_query
     - datasubmitter
@@ -170,6 +166,7 @@ enabled_ckan_extensions:
     - sixodp_showcasesubmit
     - resource_proxy
     - geo_view
+    - sentry
 
 
 enabled_ckan_aws_extensions: cloudstorage
@@ -205,3 +202,6 @@ disqus_secret_key: "{{ secret.disqus_secret_key }}"
 disqus_short_name: "{{ secret.disqus_short_name }}"
 
 cookiehub_domain_code: "8f1ccda0"
+
+sentry:
+  dsn: "https://b4577d4a1a6f452dbb60df5b74f0db3e@o4504133597855744.ingest.sentry.io/4504133599756288"
