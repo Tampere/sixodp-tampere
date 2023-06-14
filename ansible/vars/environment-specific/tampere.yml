@@ -98,14 +98,12 @@ ckan_admins:
   - "{{ ckan_users.harvest.username }}"
 
 ckan_extensions:
-  - ckanext-sixodp_routes
-  - ckanext-sixodp_scheming
-  - ckanext-sixodp_ui
+  - ckanext-sixodp
   - ckanext-sixodp_showcase
   - ckanext-scheming
   - ckanext-showcase
   - ckanext-fluent
-  - ckanext-harvest
+  #- ckanext-harvest
   - ckanext-cloudstorage
   - ckanext-report
   - ckanext-ga-report
@@ -118,55 +116,54 @@ ckan_extensions:
   - ckanext-editor
   - ckanext-collection
   - ckanext-datasetcopy
-  - ckanext-spatial
+  #- ckanext-spatial
   - ckanext-datasubmitter
   - ckanext-statistics
-  - ckanext-sixodp_harvester
+  #- ckanext-sixodp_harvester
   - ckanext-sixodp_showcasesubmit
   - ckanext-googleanalytics
   - ckanext-geoview
+  - ckanext-sentry
 
 # List of enabled CKAN extensions in load order. Order matters, when templates call super()
 enabled_ckan_extensions:
-    - datapusher
-    - text_view
-    - image_view
-    - recline_view
-    - recline_graph_view
-    - recline_grid_view
-    - recline_map_view
-    - sixodp_showcase
-    - googleanalytics
-    - sixodp_ui
-    - disqus
-    - datastore
-    - datasetcopy
-    - sixodp_scheming
-    - scheming_datasets
-    - scheming_groups
-    - fluent
-    - report
-    - publisher_activity_report
-    - rating
-    - sixodp_routes
-    - sixodp_feed
-    - qa
-    - archiver
-    - hierarchy_display
-    - hierarchy_form
-    - reminder
-    - editor
-    - collection
-    - spatial_metadata
-    - spatial_query
-    - datasubmitter
-    - harvest
-    - statistics
-    - csw_harvester
-    - sixodp_harvester
-    - sixodp_showcasesubmit
-    - resource_proxy
-    - geo_view
+  - datapusher
+  - text_view
+  - image_view
+  - recline_view
+  - recline_graph_view
+  - recline_grid_view
+  - recline_map_view
+  - sixodp_showcase
+  - googleanalytics
+  - qa
+  - archiver
+  - collection
+  - reminder
+  - datasetcopy
+  - sixodp
+  - disqus
+  - datastore
+  - scheming_datasets
+  - scheming_groups
+  - fluent
+  - report
+  - publisher_activity_report
+  #- rating
+  - hierarchy_display
+  - hierarchy_form
+  - editor
+  #- spatial_metadata
+  #- spatial_query
+  - datasubmitter
+  #- harvest
+  - statistics
+  #- csw_harvester
+  #- sixodp_harvester
+  - sixodp_showcasesubmit
+  - resource_proxy
+  - geo_view
+  - sentry
 
 enabled_ckan_aws_extensions: cloudstorage
 
