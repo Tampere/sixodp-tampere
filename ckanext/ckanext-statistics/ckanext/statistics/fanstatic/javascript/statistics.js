@@ -48,7 +48,8 @@ ckan.module('statistics', function($){
         }
       },
       locale: jQuery('html').attr('lang').split('_')[0],
-      onScroll: null
+      onScroll: null,
+      matomo_start_date: null
     },
     state: {
       dateRange: [new Date(new Date().getFullYear(), 0, 1), new Date()],
@@ -234,7 +235,7 @@ ckan.module('statistics', function($){
         texts: {
           sectionTitle: this._('Datas'),
           noDataText: this._('No data available'),
-          mostVisitedDatasetsTitle: this._('Most visited'),
+          mostVisitedDatasetsTitle: this._('Most visited since %(date)s',  {date: this.options.matomo_start_date}),
           timelineTitle: this._('Timeline'),
           amount: this._('pcs'),
           topPublishersTitle: this._('Publishers'),
@@ -284,7 +285,7 @@ ckan.module('statistics', function($){
 
         // Go through all datasets
         for (var iDataset in datasets) {
-          var releaseDate = moment.utc(datasets[iDataset][self.options.schemas.datasets.dateField], 'YYYY-MM-DD');
+          var releaseDate = datasets[iDataset].momentReleaseDate;
           if (
             releaseDate.isBefore(dateRange[0]) ||
             releaseDate.isAfter(dateRange[1])
@@ -487,7 +488,7 @@ ckan.module('statistics', function($){
 
         // Go through all datasets
         for (var iDataset in datasets) {
-          var releaseDate = moment.utc(datasets[iDataset][this.options.schemas.datasets.dateField], 'YYYY-MM-DD');
+          var releaseDate = datasets[iDataset].momentReleaseDate;
           if (
             releaseDate.isBefore(dateRange[0]) ||
             releaseDate.isAfter(dateRange[1])
@@ -513,7 +514,7 @@ ckan.module('statistics', function($){
 
     createOrganizationDatasets: function (datasets, allOrganizations, dateRange) {
       var self = this;
-      function recursive (selectedOrganization, organizations, allOrganizations) {
+      function recursive (selectedOrganization, organizations) {
         // Remains false if the currently active organization has no children
         var children = undefined;
         var result = false;
@@ -546,7 +547,7 @@ ckan.module('statistics', function($){
               // This is not the active org?
             } else {
               if (organizations[i].children.length > 0) {
-                result = recursive(selectedOrganization, organizations[i].children, allOrganizations);
+                result = recursive(selectedOrganization, organizations[i].children);
 
                 // Result was created deeper in this branch?
                 if (result) {
@@ -582,7 +583,7 @@ ckan.module('statistics', function($){
 
             // Go through all datasets
             for (var iDataset in datasets) {
-              var releaseDate = moment.utc(datasets[iDataset][self.options.schemas.datasets.dateField], 'YYYY-MM-DD');
+              var releaseDate = datasets[iDataset].momentReleaseDate;
               if (
                 releaseDate.isBefore(dateRange[0]) ||
                 releaseDate.isAfter(dateRange[1])
@@ -591,7 +592,7 @@ ckan.module('statistics', function($){
               }
 
               // Organization and its parents that this dataset belongs to
-              var parentChain = findParentChain(datasets[iDataset].organization.id, allOrganizations);
+              var parentChain = findParentChain(datasets[iDataset].organization.id);
 
               // The result org item is the org or parent org of this dataset?
               if (parentChain.indexOf(resultItem.id) !== -1) {
@@ -612,32 +613,23 @@ ckan.module('statistics', function($){
         }
       }
 
-      function findParentChain (searchedOrganizationId, branch) {
-        var result = [];
-        // Each org in this branch
-        for (var i in branch) {
-          var organization = branch[i];
-          // This is the selected?
-          if (searchedOrganizationId === organization.id) {
-            result.push(organization.id)
 
-            // This is not the selected
-          } else {
-            if (organization.children.length > 0) {
-              // Add if any child is
-              var selectedChild = findParentChain(searchedOrganizationId, organization.children);
-
-              if (selectedChild.length > 0) {
-                result = selectedChild
-                result.push(organization.id)
-              }
-            }
-          }
+      let parents = {};
+      for (let o of allOrganizations) {
+        for (let c of o.children) {
+          parents[c.id] = o.id;
         }
-        return result
       }
 
-      return recursive(this.state.organization, allOrganizations, allOrganizations);
+      function findParentChain (searchedOrganizationId) {
+        let result = [];
+        for (let pid = searchedOrganizationId; pid; pid = parents[pid]) {
+          result.push(pid);
+        }
+        return result;
+      }
+
+      return recursive(this.state.organization, allOrganizations);
     },
 
     createCategoryApps: function (apps, categories, dateRange) {
@@ -654,7 +646,7 @@ ckan.module('statistics', function($){
         };
 
         for (var iApp in apps) {
-          var releaseDate = moment.utc(apps[iApp][self.options.schemas.apps.dateField], 'YYYY-MM-DD');
+          var releaseDate = apps[iApp].momentReleaseDate;
           if (
             releaseDate.isBefore(dateRange[0]) ||
             releaseDate.isAfter(dateRange[1])
@@ -699,6 +691,14 @@ ckan.module('statistics', function($){
 
         // General data transformations for the whole statistics
         self.data.all = result;
+
+        for (let d of self.data.all.datasets) {
+          d.momentReleaseDate = moment.utc(d[self.options.schemas.datasets.dateField], 'YYYY-MM-DD');
+        }
+
+        for (let a of self.data.all.apps) {
+          a.momentReleaseDate = moment.utc(a[self.options.schemas.apps.dateField], 'YYYY-MM-DD');
+        }
 
         // Apply global filters
         self.data.filtered = self.filterAllData(self.data.all);
@@ -758,7 +758,7 @@ ckan.module('statistics', function($){
           hash: location.hash.substring(1),
         })
 
-      }, 400)
+      }, 0)
     }
 
   }
