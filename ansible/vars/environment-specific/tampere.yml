@@ -203,8 +203,6 @@ matomo:
   script_domain: "//cdn.matomo.cloud/tamperecity.matomo.cloud/"
   api_domain: ""
   site_id: "26"
-  tracker_filename: ""
-  script_filename: ""
   token_auth: "{{ secret.matomo_token_auth }}"
   start_date: 2/2018
   show_download_graph: true
