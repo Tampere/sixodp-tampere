@@ -121,7 +121,7 @@ ckan_extensions:
   - ckanext-statistics
   #- ckanext-sixodp_harvester
   - ckanext-sixodp_showcasesubmit
-  - ckanext-googleanalytics
+  - ckanext-matomo
   - ckanext-geoview
   - ckanext-sentry
 
@@ -135,7 +135,7 @@ enabled_ckan_extensions:
   - recline_grid_view
   - recline_map_view
   - sixodp_showcase
-  - googleanalytics
+  - matomo
   - qa
   - archiver
   - collection
@@ -187,10 +187,6 @@ AWS:
   ckan_s3_bucket: sixodp-{{ deployment_environment_id }}-datasets
   region: S3_EU_WEST
 
-google_analytics:
-  id: UA-50070063-16
-  account: Tampereen Kaupunki
-
 recaptcha_sitekey: 6Lc0hDUUAAAAADpECjM6YBkpWimCJGHMb0_GgtWO
 
 disqus_public_key: "{{ secret.disqus_public_key }}"
@@ -201,3 +197,13 @@ cookiehub_domain_code: "b3f65ca3"
 
 sentry:
   dsn: "https://70823020d3c24c3a8528d92fbd4cb78d@o4504133597855744.ingest.sentry.io/4505356842565632"
+
+matomo:
+  domain: "tamperecity.matomo.cloud"
+  script_domain: "//cdn.matomo.cloud/tamperecity.matomo.cloud/"
+  api_domain: ""
+  site_id: "26"
+  tracker_filename: ""
+  script_filename: ""
+  token_auth: "{{ secret.matomo_token_auth }}"
+  start_date: 2/2018
