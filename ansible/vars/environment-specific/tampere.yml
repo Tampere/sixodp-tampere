@@ -201,7 +201,6 @@ sentry:
 matomo:
   domain: "https://tamperecity.matomo.cloud/"
   script_domain: "//cdn.matomo.cloud/tamperecity.matomo.cloud/"
-  api_domain: ""
   site_id: "26"
   token_auth: "{{ secret.matomo_token_auth }}"
   start_date: 2/2018
