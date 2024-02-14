@@ -1,11 +1,15 @@
 import sys
 
 import ckan.logic as logic
+from ckan import model
+from ckan.plugins import toolkit
 
 _check_access = logic.check_access
 get_action = logic.get_action
 chained_action = logic.chained_action
 
+import logging
+log = logging.getLogger(__name__)
 
 @logic.validate(logic.schema.default_autocomplete_schema)
 def package_autocomplete(context, data_dict):
@@ -85,3 +89,44 @@ def package_patch(next_func, context, datadict):
     context['keep_deletable_attributes_in_api'] = True
 
     return next_func(context, datadict)
+
+
+# Adds new users to every group and collection
+@chained_action
+def user_create(original_action, context, data_dict):
+    result = original_action(context, data_dict)
+
+
+    if result:
+        context = {'model': model, 'session': model.Session, 'ignore_auth': True}
+        admin_user = toolkit.get_action('get_site_user')(context, None)
+        context['user'] = admin_user['name']
+
+        groups = toolkit.get_action('group_list')(context, {})
+        collections = toolkit.get_action('group_list')(context,  {'type': "collection"})
+
+        for group in groups + collections:
+            member_data = {'id': group, 'username': result['name'], 'role': 'member'}
+            toolkit.get_action('group_member_create')(context, member_data)
+
+    return result
+
+@chained_action
+def group_create(original_action, context, data_dict):
+    result = original_action(context, data_dict)
+
+    current_user = context.get('user')
+    if result:
+        context = {'model': model, 'session': model.Session, 'ignore_auth': True}
+        admin_user = toolkit.get_action('get_site_user')(context, None)
+        context['user'] = admin_user['name']
+
+        users = toolkit.get_action('user_list')(context, {'all_fields': False})
+        for user in users:
+
+            # do not modify the permissions of user creating the group
+            if current_user != user:
+                member_data = {'id': result['id'], 'username': user, 'role': 'member'}
+                toolkit.get_action('group_member_create')(context, member_data)
+
+    return result
