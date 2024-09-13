@@ -10,5 +10,13 @@
   "hosted-zone:account=290365872283:domainName=dataportaali.com:region=eu-west-1": {
     "Id": "/hostedzone/Z3MUEH1DAIWOFS",
     "Name": "dataportaali.com."
+  },
+  "availability-zones:account=788688634900:region=eu-west-1": [
+    "eu-west-1a",
+    "eu-west-1b",
+    "eu-west-1c"
+  ],
+  "key-provider:account=788688634900:aliasName=alias/secret-encryption-key:region=eu-west-1": {
+    "keyId": "ecacd928-2f05-4fe1-b36d-10883de6ee60"
   }
 }

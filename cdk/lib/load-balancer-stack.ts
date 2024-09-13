@@ -17,7 +17,7 @@ export class LoadBalancerStack extends Stack {
 
 
         const certificate = new aws_certificatemanager.Certificate(this, 'certificate', {
-            domainName: `${props.environment}.${props.fqdn}`,
+            domainName: props.fqdn,
             validation: CertificateValidation.fromDns(zone)
         })
 
@@ -55,7 +55,6 @@ export class LoadBalancerStack extends Stack {
         new aws_route53.ARecord(this, 'ARecord', {
             zone: zone,
             target: aws_route53.RecordTarget.fromAlias(new LoadBalancerTarget(loadBalancer)),
-            recordName: props.environment
         })
 
     }

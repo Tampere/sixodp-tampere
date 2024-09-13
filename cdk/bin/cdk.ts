@@ -13,13 +13,13 @@ import {FileSystemStack} from "../lib/file-system-stack";
 const app = new cdk.App();
 
 const stackProps = {
-    account: '290365872283',
+    account: '788688634900',
     region: 'eu-west-1',
 }
 
 const env = {
-    environment: 'generic-qa',
-    fqdn: 'dataportaali.com'
+    environment: 'tampere',
+    fqdn: 'data.tampere.fi'
 }
 
 const vpcStack = new VpcStack(app, 'vpcStack', {
@@ -65,7 +65,7 @@ const backgroundServerStack = new BackgroundServerStack(app, 'backgroundServerSt
     vpc: vpcStack.vpc,
     environment: env.environment,
     fqdn: env.fqdn,
-    secretBucketName: 'sixodp-secrets',
+    secretBucketName: 'sixodp-tampere-secrets',
     ckanDatabase: databaseStack.ckanDatabase,
     wpDatabase: databaseStack.wpDatabase,
     ckanDatabaseCredentials: databaseStack.ckanDatabaseCredentials,
@@ -91,7 +91,7 @@ const webServerStack = new WebServerStack(app, 'webServerStack', {
     vpc: vpcStack.vpc,
     environment: env.environment,
     fqdn: env.fqdn,
-    secretBucketName: 'sixodp-secrets',
+    secretBucketName: 'sixodp-tampere-secrets',
     ckanDatabase: databaseStack.ckanDatabase,
     wpDatabase: databaseStack.wpDatabase,
     ckanDatabaseCredentials: databaseStack.ckanDatabaseCredentials,
