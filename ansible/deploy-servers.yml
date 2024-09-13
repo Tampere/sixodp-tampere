@@ -1,0 +1,49 @@
+- hosts: backgroundserver
+  become: true
+  vars_files:
+    - "vars/common.yml"
+    - "vars/environment-specific/{{ deployment_environment_id }}.yml"
+    - "{{ secrets_file_path }}"
+  roles:
+    - os-base
+    - java
+    - postgres-install
+    - postgres-data
+    - solr
+    - redis
+    - nodejs
+    - postfix
+    - ckan-extensions
+    - ckan-install
+    - ckan-config
+    - ckan-install-patches
+    - ckan-database
+    - ckan-cron
+    - supervisor
+    - datapusher
+    - mysql
+    - solr-reindex
+
+- hosts: webserver
+  become: true
+  vars_files:
+    - "vars/common.yml"
+    - "vars/environment-specific/{{ deployment_environment_id }}.yml"
+    - "{{ secrets_file_path }}"
+  roles:
+    - os-base
+    - nodejs
+    - postfix
+    - ckan-extensions
+    - ckan-install
+    - ckan-config
+    - ckan-install-patches
+    - supervisor
+    - nginx
+    - transifex-install
+    - ckan-translations
+    - ckan-restart
+    - mysql
+    - php-fpm
+    - wordpress
+    - phppgadmin
