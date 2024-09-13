@@ -18,5 +18,9 @@
   ],
   "key-provider:account=788688634900:aliasName=alias/secret-encryption-key:region=eu-west-1": {
     "keyId": "ecacd928-2f05-4fe1-b36d-10883de6ee60"
+  },
+  "hosted-zone:account=788688634900:domainName=data.tampere.fi:region=eu-west-1": {
+    "Id": "/hostedzone/Z02123251WGIX05S5U5VP",
+    "Name": "data.tampere.fi."
   }
 }
