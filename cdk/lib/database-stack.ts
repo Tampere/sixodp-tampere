@@ -57,7 +57,7 @@ export class DatabaseStack extends Stack {
             securityGroups: [
                 this.ckanDatabaseSecurityGroup
             ],
-            allowMajorVersionUpgrade: true
+            allowMajorVersionUpgrade: false
         })
 
         const postgresHostParameter = new aws_ssm.StringParameter(this, 'postgrestHostParameter', {
