@@ -47,7 +47,7 @@ export class WebServerStack extends Stack {
             'git submodule update --init --recursive',
             `aws s3 cp s3://sixodp-tampere-secrets/${props.environment}/secrets.yml /root/sixodp-secrets/${props.environment}/secrets.yml`,
             'chmod -R go-rwx /root/sixodp-secrets/*',
-            'cd /root/sixodp/ansible',
+            'cd /root/sixodp-tampere/ansible',
             `ansible-playbook -i inventories/${props.environment} deploy-servers.yml --limit webserver`,
             'echo "Bootstrap done."'
         )
