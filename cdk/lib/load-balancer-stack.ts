@@ -96,7 +96,7 @@ export class LoadBalancerStack extends Stack {
             new aws_route53.ARecord(this, 'pgAdminARecord', {
                 zone: zone,
                 target: aws_route53.RecordTarget.fromAlias(new LoadBalancerTarget(loadBalancer)),
-                recordName: `phppgadmin.${props.environment}`
+                recordName: `phppgadmin.${props.fqdn}`
             })
 
             for (let i = 1; i <= props.numberOfAllowedIpsInPgAdmin; i++) {
