@@ -22,7 +22,7 @@ export class LoadBalancerStack extends Stack {
         super(scope, id, props);
 
         const zone = aws_route53.HostedZone.fromLookup(this, 'HostedZone', {
-            domainName: props.fqdn
+            domainName: props.domain
         })
 
 
@@ -71,7 +71,7 @@ export class LoadBalancerStack extends Stack {
         if ( props.pgAdminEnabled ) {
 
             const pgAdminCertificate = new aws_certificatemanager.Certificate(this, 'pgAdmincertificate', {
-                domainName: `phppgadmin.${props.environment}.${props.fqdn}`,
+                domainName: `phppgadmin.${props.fqdn}`,
                 validation: CertificateValidation.fromDns(zone)
             })
 
