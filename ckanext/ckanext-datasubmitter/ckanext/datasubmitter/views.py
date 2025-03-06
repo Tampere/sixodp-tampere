@@ -89,7 +89,7 @@ class DatasubmitterView(MethodView):
                 return {}, [], {}, None
 
             context = {'model': model, 'session': model.Session,
-                       'user': user.id, 'auth_user_obj': user.id,
+                       'user': user.id, 'auth_user_obj': user,
                        'save': 'save' in request.args}
 
             data_dict = clean_dict(dict_fns.unflatten(

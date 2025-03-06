@@ -13,11 +13,17 @@ ckan_ini: /etc/ckan/default/ckan.ini
 ckan_test_core_ini: /etc/ckan/default/test-core.ini
 ckan_who_ini: /etc/ckan/default/who.ini
 virtualenv: /usr/lib/ckan/default
+ckan_source_path: "{{ virtualenv }}/lib/python3.10/site-packages"
 datapusherenv: /usr/lib/ckan/datapusher
 
 rds_domain_common_part: cviits9hpewz.eu-west-1.rds.amazonaws.com
+site_protocol: https
+
 sentry:
   dsn: ""
 
 translation_projects:
   - ckanext-matomo
+
+datapusher:
+  api_token: replacethis
