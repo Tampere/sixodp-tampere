@@ -41,7 +41,7 @@
        margin-top: -1px;
        margin-left: -1px;
        border: 1px solid #eee;
-
+       overflow: hidden;
      }
 
   .sidebar-item-author {
@@ -62,7 +62,7 @@
     a {
       background: $sidebar-item-bg--highlight;
       color: $sidebar-item-color--highlight;
-      padding-left: $padding-large-horizontal*2 + 5px;
+      padding-left: $padding-large-horizontal*2 + 0.313rem;
     }
 
     .sidebar-icon-wrapper {

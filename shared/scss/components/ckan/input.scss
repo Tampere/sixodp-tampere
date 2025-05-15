@@ -1,5 +1,5 @@
 input {
-  height: $input-height-small;
+  height: $input-height-large;
   line-height: $line-height-small;
   background-color: $input-background-color;
   border-radius: $border-radius-base;
@@ -31,17 +31,13 @@ label.checkbox {
     width: auto;
     height: auto;
     position: absolute;
+    margin-left: -20px;
+    appearance: auto;
   }
 }
 
 .input-group {
-  .input-group-btn {
-    .btn {
-      height: $input-height-base;
-    }
-
-    .btn-lg {
-      height: $input-height-large;
-    }
+  .btn {
+    padding: 5px 12px 4px 12px;
   }
 }

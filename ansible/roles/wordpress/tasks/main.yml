@@ -1,7 +1,7 @@
 ---
 - name: Install PyMySQL
-  pip:
-    name: PyMySQL
+  apt:
+    name: python3-pymysql
 
 - name: Download WP-CLI
   get_url:
@@ -198,8 +198,16 @@
     delete: true
   when: deployment_environment_id != "vagrant"
 
-- name: Copy translations
-  copy: src=../sixodp/i18n/{{ item.locale }}/LC_MESSAGES/sixodp-{{ item.locale }}.mo dest=/opt/wordpress/wp-content/languages/themes/
+- name: Ensure theme language directory
+  file:
+    state: directory
+    path: /opt/wordpress/wp-content/languages/themes
+    owner: www-data
+    group: www-data
+
+- name: Compile translations
+  command:
+   cmd: "msgfmt ../sixodp/i18n/{{ item.locale }}/LC_MESSAGES/sixodp.po -o /opt/wordpress/wp-content/languages/themes/sixodp-{{ item.locale }}.mo"
   with_items: "{{ polylang_languages }}"
 
 - name: Ensure theme language permissions

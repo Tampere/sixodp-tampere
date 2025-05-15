@@ -84,31 +84,39 @@ def get_social_links():
 def get_social_link_icon_class(item):
     title = item.get('title').lower()
     if title == 'facebook':
-        return 'fa fa-facebook-square'
+        return 'fa-brands fa-square-facebook'
     elif title == 'twitter':
-        return 'fa fa-twitter-square'
+        return 'fa-brands fa-square-x-twitter'
+    elif title == 'x':
+        return 'fa-brands fa-square-x-twitter'
     elif title == 'youtube':
-        return 'fa fa-youtube-square'
+        return 'fa-brands fa-youtube-square'
     elif title == 'rss':
-        return 'fa fa-rss-square'
+        return 'fa-solid fa-square-rss'
     elif title == 'tumblr':
-        return 'fa fa-tumblr-square'
+        return 'fa-brands fa-square-tumblr'
     elif title == 'github':
-        return 'fa fa-github-square'
+        return 'fa-brands fa-square-github'
     elif title == 'instagram':
-        return 'fa fa-instagram'
+        return 'fa-brands fa-square-instagram'
     elif title == 'linkedin':
-        return 'fa fa-linkedin-square'
+        return 'fa-brands fa-linkedin'
     elif title == 'flickr':
-        return 'fa fa-flickr'
+        return 'fa-brands fa-flickr'
     elif title == 'slideshare':
-        return 'fa fa-slideshare'
+        return 'fa-brands fa-slideshare'
     elif title == 'newsletter':
-        return 'fa fa-news-o'
+        return 'fa-solid fa-envelope'
+    elif title == 'uutiskirje':
+        return 'fa-solid fa-envelope'
     elif title == 'speakerdeck':
-        return 'fa fa-caret-square-o-right'
+        return 'fa-brands fa-speaker-deck'
+    elif title == 'mastodon':
+        return 'fa-brands fa-mastodon'
+    elif title == 'bluesky':
+        return 'fa-brands fa-bluesky'
     else:
-        return 'icon-external-link-sign'
+        return 'fa-solid fa-external-link-square'
 
 
 def menu_is_active(menu_url, current_path):
@@ -285,7 +293,7 @@ def build_nav_main():
 
         if len(children) > 0:
             subnav_toggle = literal('<button class="subnav-toggle"><span class="sr-only">' + _('Show submenu for ') + menu.get('title') + '</span><i class="fa fa-chevron-down"></i></button>')
-            subnav = literal('<ul class="nav navbar-nav subnav">') + children + literal('</ul>')
+            subnav = literal('<ul class="navbar-nav subnav">') + children + literal('</ul>')
             return make_menu_item(menu, active, is_submenu) + subnav_toggle + subnav + literal('</li>')
         else:
             return make_menu_item(menu, active, is_submenu) + literal('</li>')
@@ -302,11 +310,11 @@ def make_menu_item(menu_item, active = False, is_submenu = False):
     if is_submenu:
         icon = literal('<span class="fa fa-long-arrow-right"></span>')
 
-    link = literal('<a href="') + menu_item.get('url') + literal('">') + icon + menu_item.get('title') + literal('</a>')
-    item_classes = ''
+    link = literal('<a class="nav-link" href="') + menu_item.get('url') + literal('">') + icon + menu_item.get('title') + literal('</a>')
+    item_classes = 'nav-item'
 
     if active:
-        item_classes += 'active';
+        item_classes += ' active';
     return literal('<li class="' + item_classes + '">') + link
 
 

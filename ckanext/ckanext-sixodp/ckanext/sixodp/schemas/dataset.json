@@ -166,6 +166,7 @@
       "field_name": "time_series_precision",
       "label": "Time Series Precision",
       "form_placeholder":"eg. 2 weeks",
+      "form_languages": ["fi", "en", "sv"],
       "preset": "fluent_vocabulary_with_autocomplete",
       "validators": "fluent_tags create_fluent_tags(time_series_precision)",
       "form_attrs": {
@@ -173,7 +174,8 @@
         "data-module-tags": "",
         "data-module-source": "/api/2/util/tag/autocomplete?incomplete=?&vocabulary_id=time_series_precision"
       },
-      "description": "A string which describes the precision of the entered time series."
+      "description": "A string which describes the precision of the entered time series.",
+      "display_snippet": "fluent_list.html"
     },
     {
       "field_name": "reminder",
@@ -283,7 +285,8 @@
         "data-module-tags": "",
         "data-module-source": "/api/2/util/tag/autocomplete?incomplete=?&vocabulary_id=time_series_precision"
       },
-      "description": "A string which describes the precision of the entered time series."
+      "description": "A string which describes the precision of the entered time series.",
+      "display_snippet": "fluent_list.html"
     }
   ]
 }
