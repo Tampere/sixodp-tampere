@@ -102,8 +102,8 @@ const webServerStack = new WebServerStack(app, 'webServerStack', {
     wpDatabase: databaseStack.wpDatabase,
     ckanDatabaseCredentials: databaseStack.ckanDatabaseCredentials,
     wpDatabaseCredentials: databaseStack.wpDatabaseCredentials,
-    minWebServerCapacity: 1,
-    maxWebServerCapacity: 1,
+    minWebServerCapacity: 2,
+    maxWebServerCapacity: 2,
     backgroundServer: backgroundServerStack.backgroundServer,
     fileSystem: fileSystemStack.fileSystem
 })
