@@ -10,6 +10,8 @@ import {WebServerStack} from "../lib/web-server-stack";
 import {BackgroundServerStack} from "../lib/background-server-stack";
 import {FileSystemStack} from "../lib/file-system-stack";
 import {SesStack} from "../lib/ses-stack";
+import {ShieldParameterStack} from "../lib/shield-parameter-stack";
+import {ShieldStack} from "../lib/shield-stack";
 
 const app = new cdk.App();
 
@@ -136,3 +138,27 @@ const sesStack = new SesStack(app, 'sesStack', {
 })
 
 
+const shieldParameterStack = new ShieldParameterStack(app, 'shieldParameterStack', {
+    env: {
+        account: stackProps.account,
+        region: stackProps.region
+    },
+    environment: env.environment,
+    fqdn: env.fqdn,
+    domain: env.domain
+})
+
+
+const shieldStack = new ShieldStack(app, 'shieldStack', {
+    env: {
+        account: stackProps.account,
+        region: stackProps.region
+    },
+    environment: env.environment,
+    fqdn: env.fqdn,
+    domain: env.domain,
+    bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
+    whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
+    managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
+    loadBalancer: loadBalancerStack.loadBalancer
+})
