@@ -136,3 +136,30 @@ const sesStack = new SesStack(app, 'sesStack', {
 })
 
 
+const shieldParameterStack = new ShieldParameterStack(app, 'shieldParameterStack', {
+    env: {
+        account: stackProps.account,
+        region: stackProps.region
+    },
+    environment: env.environment,
+    fqdn: env.fqdn,
+    domain: env.domain
+})
+
+
+const shieldStack = new ShieldStack(app, 'shieldStack', {
+    env: {
+        account: stackProps.account,
+        region: stackProps.region
+    },
+    environment: env.environment,
+    fqdn: env.fqdn,
+    domain: env.domain,
+    bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
+    whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
+    managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
+    limitASNs: true,
+    rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
+    loadBalancer: loadBalancerStack.loadBalancer
+})
+
