@@ -6,6 +6,7 @@ export class ShieldParameterStack extends Stack {
     readonly bannedIpListParameterName: string;
     readonly whitelistedIpListParameterName: string;
     readonly managedRulesParameterName: string;
+    readonly rateLimitedASN1ParameterName: string;
 
     constructor(scope: Construct, id: string, props: EnvProps) {
         super(scope, id, props);
@@ -29,6 +30,13 @@ export class ShieldParameterStack extends Stack {
             stringValue: 'some placeholder',
             description: 'JSON value for managed rules',
             parameterName: this.managedRulesParameterName
+        })
+
+        this.rateLimitedASN1ParameterName = `/${props.environment}/waf/rate_limit_ASN_1`
+        new aws_ssm.StringParameter(this, 'rateLimitASNList', {
+            stringValue: "some placeholder",
+            description: "ASN under strict rate limit",
+            parameterName: this.rateLimitedASN1ParameterName
         })
     }
 }

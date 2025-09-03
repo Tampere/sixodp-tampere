@@ -160,5 +160,7 @@ const shieldStack = new ShieldStack(app, 'shieldStack', {
     bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
     whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
     managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
+    limitASNs: true,
+    rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
     loadBalancer: loadBalancerStack.loadBalancer
 })

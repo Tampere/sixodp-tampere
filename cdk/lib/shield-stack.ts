@@ -1,4 +1,13 @@
-import {aws_ssm, aws_wafv2, CfnParameter, Stack, StackProps} from "aws-cdk-lib";
+import {
+    aws_cloudwatch,
+    aws_route53,
+    aws_shield,
+    aws_ssm,
+    aws_wafv2,
+    CfnParameter,
+    Stack,
+    StackProps, Token
+} from "aws-cdk-lib";
 import {Construct} from "constructs";
 import {ShieldStackProps} from "./shield-stack-props";
 
@@ -32,7 +41,10 @@ export class ShieldStack extends Stack {
             addresses: whitelisted_ips.valueAsList
         })
 
-        let rules = [
+
+
+
+        let rules: aws_wafv2.CfnWebACL.RuleProperty[] = [
             {
                 name: 'block-banned_ips',
                 priority: 0,
@@ -68,6 +80,41 @@ export class ShieldStack extends Stack {
                 }
             }
         ]
+
+        if ( props.limitASNs ) {
+            const rate_limited_ASN_1 = aws_ssm.StringParameter.fromStringParameterAttributes(this,
+                'rateLimitASN1', {
+                    parameterName: props.rateLimitASN1ParameterName,
+                    simpleName: false
+                })
+
+            const limitASNRule: aws_wafv2.CfnWebACL.RuleProperty = {
+                name: 'rate-limited-ASNs',
+                priority: 2,
+                action: {
+                    block: {}
+                },
+                statement: {
+                    rateBasedStatement: {
+                        limit: 10,
+                        aggregateKeyType: "CONSTANT",
+                        evaluationWindowSec: 60,
+                        scopeDownStatement: {
+                            asnMatchStatement: {
+                                asnList: [Token.asNumber(rate_limited_ASN_1.stringValue)]
+                            }
+                        }
+                    }
+                },
+                visibilityConfig: {
+                    cloudWatchMetricsEnabled: true,
+                    metricName: "rate-limited-ASNs",
+                    sampledRequestsEnabled: false
+                }
+            }
+
+            rules.push(limitASNRule)
+        }
 
 
         const RuleGroupSchema = z.array(
@@ -115,7 +162,7 @@ export class ShieldStack extends Stack {
 
                 let managedRuleGroup: aws_wafv2.CfnWebACL.RuleProperty = {
                     name: "managed-rule-group-" + rule.groupName,
-                    priority: 2 + index,
+                    priority: rules.length + index,
                     overrideAction: {
                         none: {}
                     },

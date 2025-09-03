@@ -5,5 +5,7 @@ export interface ShieldStackProps extends EnvProps {
     bannedIpListParameterName: string,
     whitelistedIpListParameterName: string,
     managedRulesParameterName: string,
+    rateLimitASN1ParameterName: string,
+    limitASNs: boolean,
     loadBalancer: aws_elasticloadbalancingv2.ApplicationLoadBalancer
 }
