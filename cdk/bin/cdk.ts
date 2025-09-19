@@ -160,6 +160,9 @@ const shieldStack = new ShieldStack(app, 'shieldStack', {
     managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
     limitASNs: true,
     rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
+    rateLimitASN2ParameterName: shieldParameterStack.rateLimitedASN2ParameterName,
+    limitCountries: true,
+    rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
     loadBalancer: loadBalancerStack.loadBalancer
 })
 

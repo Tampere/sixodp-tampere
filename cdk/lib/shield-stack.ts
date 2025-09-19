@@ -88,6 +88,12 @@ export class ShieldStack extends Stack {
                     simpleName: false
                 })
 
+            const rate_limited_ASN_2 = aws_ssm.StringParameter.fromStringParameterAttributes(this,
+                'rateLimitASN2', {
+                    parameterName: props.rateLimitASN2ParameterName,
+                    simpleName: false
+                })
+
             const limitASNRule: aws_wafv2.CfnWebACL.RuleProperty = {
                 name: 'rate-limited-ASNs',
                 priority: 2,
@@ -101,7 +107,7 @@ export class ShieldStack extends Stack {
                         evaluationWindowSec: 60,
                         scopeDownStatement: {
                             asnMatchStatement: {
-                                asnList: [Token.asNumber(rate_limited_ASN_1.stringValue)]
+                                asnList: [Token.asNumber(rate_limited_ASN_1.stringValue), Token.asNumber(rate_limited_ASN_2.stringValue)]
                             }
                         }
                     }
@@ -109,11 +115,46 @@ export class ShieldStack extends Stack {
                 visibilityConfig: {
                     cloudWatchMetricsEnabled: true,
                     metricName: "rate-limited-ASNs",
-                    sampledRequestsEnabled: false
+                    sampledRequestsEnabled: true
                 }
             }
 
             rules.push(limitASNRule)
+        }
+
+        if (props.limitCountries) {
+            const rateLimitedCountryCodesParameter = new CfnParameter(this,  'rateLimitedCountryCodesParameter', {
+                type: 'AWS::SSM::Parameter::Value<List<String>>',
+                default: props.rateLimitedCountriesParameterName
+            });
+
+            const rateLimitedCountries: aws_wafv2.CfnWebACL.RuleProperty = {
+                name: "rate-limit-countries",
+                priority: 3,
+                action: {
+                    block: {}
+                },
+                statement: {
+                    rateBasedStatement: {
+                        limit: 10,
+                        aggregateKeyType: "CONSTANT",
+                        evaluationWindowSec: 60,
+                        scopeDownStatement: {
+                            geoMatchStatement: {
+                                countryCodes: rateLimitedCountryCodesParameter.valueAsList
+                            }
+                        }
+                    }
+                },
+                visibilityConfig: {
+                    cloudWatchMetricsEnabled: true,
+                    metricName: "request-rate-limit-countries",
+                    sampledRequestsEnabled: true
+                }
+
+            }
+
+            rules.push(rateLimitedCountries)
         }
 
 
