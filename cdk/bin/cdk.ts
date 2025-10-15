@@ -158,10 +158,10 @@ const shieldStack = new ShieldStack(app, 'shieldStack', {
     bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
     whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
     managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
-    limitASNs: true,
+    limitASNs: false,
     rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
     rateLimitASN2ParameterName: shieldParameterStack.rateLimitedASN2ParameterName,
-    limitCountries: true,
+    limitCountries: false,
     rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
     loadBalancer: loadBalancerStack.loadBalancer
 })
