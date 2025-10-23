@@ -161,7 +161,7 @@ const shieldStack = new ShieldStack(app, 'shieldStack', {
     limitASNs: false,
     rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
     rateLimitASN2ParameterName: shieldParameterStack.rateLimitedASN2ParameterName,
-    limitCountries: false,
+    limitCountries: true,
     rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
     loadBalancer: loadBalancerStack.loadBalancer
 })
