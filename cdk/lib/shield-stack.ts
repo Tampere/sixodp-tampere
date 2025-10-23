@@ -96,7 +96,7 @@ export class ShieldStack extends Stack {
 
             const limitASNRule: aws_wafv2.CfnWebACL.RuleProperty = {
                 name: 'rate-limited-ASNs',
-                priority: 2,
+                priority: rules.length,
                 action: {
                     block: {}
                 },
@@ -130,7 +130,7 @@ export class ShieldStack extends Stack {
 
             const rateLimitedCountries: aws_wafv2.CfnWebACL.RuleProperty = {
                 name: "rate-limit-countries",
-                priority: 3,
+                priority: rules.length,
                 action: {
                     block: {}
                 },
