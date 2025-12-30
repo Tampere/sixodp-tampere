@@ -110,7 +110,6 @@ ckan_extensions:
   - ckanext-archiver
   #- ckanext-qa
   - ckanext-hierarchy
-  - ckanext-disqus
   - ckanext-reminder
   - ckanext-rating
   - ckanext-editor
@@ -139,7 +138,6 @@ enabled_ckan_extensions:
   - datasetcopy
   - sixodp
   - activity
-  - disqus
   - datastore
   - scheming_datasets
   - scheming_groups
@@ -187,10 +185,6 @@ AWS:
   region: S3_EU_WEST
 
 recaptcha_sitekey: 6Lc0hDUUAAAAADpECjM6YBkpWimCJGHMb0_GgtWO
-
-disqus_public_key: "{{ secret.disqus_public_key }}"
-disqus_secret_key: "{{ secret.disqus_secret_key }}"
-disqus_short_name: "{{ secret.disqus_short_name }}"
 
 cookiehub_domain_code: "b3f65ca3"
 
