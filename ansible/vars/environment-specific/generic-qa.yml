@@ -113,7 +113,6 @@ ckan_extensions:
   - ckanext-archiver
   #- ckanext-qa
   - ckanext-hierarchy
-  - ckanext-disqus
   - ckanext-reminder
   - ckanext-rating
   - ckanext-editor
@@ -142,7 +141,6 @@ enabled_ckan_extensions:
     - datasetcopy
     - sixodp
     - activity
-    - disqus
     - datastore
     - scheming_datasets
     - scheming_groups
@@ -206,9 +204,6 @@ matomo:
   start_date: 10/2023
   show_download_graph: true
 
-disqus_public_key: "{{ secret.disqus_public_key }}"
-disqus_secret_key: "{{ secret.disqus_secret_key }}"
-disqus_short_name: "{{ secret.disqus_short_name }}"
 
 cookiehub_domain_code: "8f1ccda0"
 

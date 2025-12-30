@@ -68,10 +68,6 @@ ckan_users:
     username: admin
     password: "{{ secret.ckan_admin_password }}"
     email: vagrant@localhost
-  harvest:
-    username: harvest
-    password: "{{ secret.ckan_harvest_password }}"
-    email: harvest@localhost
   test:
     username: test
     password: "{{ secret.ckan_test_password }}"
@@ -85,7 +81,6 @@ wordpress_users:
 
 ckan_admins:
   - "{{ ckan_users.admin.username }}"
-  - "{{ ckan_users.harvest.username }}"
 
 ckan_extensions:
   - ckanext-sixodp
@@ -100,7 +95,6 @@ ckan_extensions:
   - ckanext-archiver
   #- ckanext-qa
   - ckanext-hierarchy
-  - ckanext-disqus
   - ckanext-reminder
   - ckanext-rating
   - ckanext-editor
@@ -129,7 +123,6 @@ enabled_ckan_extensions:
     - datasetcopy
     - sixodp
     - activity
-    - disqus
     - datastore
     - scheming_datasets
     - scheming_groups
@@ -179,9 +172,7 @@ AWS:
 
 recaptcha_sitekey: 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI
 
-disqus_public_key: "{{ secret.disqus_public_key }}"
-disqus_secret_key: "{{ secret.disqus_secret_key }}"
-disqus_short_name: "{{ secret.disqus_short_name }}"
+
 
 cookiehub_domain_code: ""
 
