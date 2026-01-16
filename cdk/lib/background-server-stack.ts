@@ -21,12 +21,12 @@ export class BackgroundServerStack extends Stack {
             'add-apt-repository --yes --update ppa:ansible/ansible',
             'apt-get -y install ansible',
             'cd /root',
-            'git clone https://github.com/6aika/sixodp.git',
-            'cd /root/sixodp',
+            'git clone https://github.com/Tampere/sixodp-tampere.git',
+            'cd /root/sixodp-tampere',
             'git submodule update --init --recursive',
-            `aws s3 cp s3://sixodp-secrets/${props.environment}/secrets.yml /root/sixodp-secrets/${props.environment}/secrets.yml`,
+            `aws s3 cp s3://sixodp-tampere-secrets/${props.environment}/secrets.yml /root/sixodp-secrets/${props.environment}/secrets.yml`,
             'chmod -R go-rwx /root/sixodp-secrets/*',
-            'cd /root/sixodp/ansible',
+            'cd /root/sixodp-tampere/ansible',
             `ansible-playbook -i inventories/${props.environment} deploy-servers.yml --limit backgroundserver`,
             'echo "Bootstrap done."'
         )
@@ -65,7 +65,7 @@ export class BackgroundServerStack extends Stack {
             vpcSubnets: {
                 subnets: props.vpc.privateSubnets
             },
-            instanceType: aws_ec2.InstanceType.of(aws_ec2.InstanceClass.T4G, aws_ec2.InstanceSize.SMALL),
+            instanceType: aws_ec2.InstanceType.of(aws_ec2.InstanceClass.T4G, aws_ec2.InstanceSize.MEDIUM),
             machineImage: aws_ec2.MachineImage.genericLinux({
                 'eu-west-1': 'ami-0bbd3f89449af0b30'
             }),

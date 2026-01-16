@@ -16,8 +16,7 @@ virtualenv: /usr/lib/ckan/default
 ckan_source_path: "{{ virtualenv }}/lib/python3.12/site-packages"
 datapusherenv: /usr/lib/ckan/datapusher
 
-rds_domain_common_part: cxzvfvoncnm2.eu-west-1.rds.amazonaws.com
-
+rds_domain_common_part: cviits9hpewz.eu-west-1.rds.amazonaws.com
 site_protocol: https
 
 sentry:

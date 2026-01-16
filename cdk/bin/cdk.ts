@@ -10,18 +10,20 @@ import {WebServerStack} from "../lib/web-server-stack";
 import {BackgroundServerStack} from "../lib/background-server-stack";
 import {FileSystemStack} from "../lib/file-system-stack";
 import {SesStack} from "../lib/ses-stack";
+import {ShieldParameterStack} from "../lib/shield-parameter-stack";
+import {ShieldStack} from "../lib/shield-stack";
 
 const app = new cdk.App();
 
 const stackProps = {
-    account: '290365872283',
+    account: '788688634900',
     region: 'eu-west-1',
 }
 
 const env = {
-    environment: 'generic-qa',
-    domain: 'dataportaali.com',
-    fqdn: 'generic-qa.dataportaali.com'
+    environment: 'tampere',
+    fqdn: 'data.tampere.fi',
+    domain: 'data.tampere.fi',
 }
 
 const vpcStack = new VpcStack(app, 'vpcStack', {
@@ -69,7 +71,7 @@ const backgroundServerStack = new BackgroundServerStack(app, 'backgroundServerSt
     environment: env.environment,
     fqdn: env.fqdn,
     domain: env.domain,
-    secretBucketName: 'sixodp-secrets',
+    secretBucketName: 'sixodp-tampere-secrets',
     ckanDatabase: databaseStack.ckanDatabase,
     wpDatabase: databaseStack.wpDatabase,
     ckanDatabaseCredentials: databaseStack.ckanDatabaseCredentials,
@@ -97,13 +99,13 @@ const webServerStack = new WebServerStack(app, 'webServerStack', {
     environment: env.environment,
     fqdn: env.fqdn,
     domain: env.domain,
-    secretBucketName: 'sixodp-secrets',
+    secretBucketName: 'sixodp-tampere-secrets',
     ckanDatabase: databaseStack.ckanDatabase,
     wpDatabase: databaseStack.wpDatabase,
     ckanDatabaseCredentials: databaseStack.ckanDatabaseCredentials,
     wpDatabaseCredentials: databaseStack.wpDatabaseCredentials,
-    minWebServerCapacity: 1,
-    maxWebServerCapacity: 1,
+    minWebServerCapacity: 2,
+    maxWebServerCapacity: 2,
     backgroundServer: backgroundServerStack.backgroundServer,
     fileSystem: fileSystemStack.fileSystem
 })
@@ -136,3 +138,32 @@ const sesStack = new SesStack(app, 'sesStack', {
 })
 
 
+const shieldParameterStack = new ShieldParameterStack(app, 'shieldParameterStack', {
+    env: {
+        account: stackProps.account,
+        region: stackProps.region
+    },
+    environment: env.environment,
+    fqdn: env.fqdn,
+    domain: env.domain
+})
+
+
+const shieldStack = new ShieldStack(app, 'shieldStack', {
+    env: {
+        account: stackProps.account,
+        region: stackProps.region
+    },
+    environment: env.environment,
+    fqdn: env.fqdn,
+    domain: env.domain,
+    bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
+    whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
+    managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
+    limitASNs: true,
+    rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
+    rateLimitASN2ParameterName: shieldParameterStack.rateLimitedASN2ParameterName,
+    limitCountries: true,
+    rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
+    loadBalancer: loadBalancerStack.loadBalancer
+})

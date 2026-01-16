@@ -29,6 +29,7 @@ removed_wordpress_plugins:
   - custom-twitter-feeds
   - wordpress-importer
   - contact-widgets
+  - better-search-replace
 
 polylang_languages: 
   - { name: 'Suomi', code: 'fi', locale: 'fi', flag: 'fi' }

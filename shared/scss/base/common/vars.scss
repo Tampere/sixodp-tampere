@@ -13,11 +13,11 @@ $border-radius-round: 15px;
 $border-color: #dddddd;
 
 // Typography
-$font: 'Roboto', sans-serif;
-$font-heading: 'Roboto', sans-serif;
+$font: 'Open Sans', sans-serif;
+$font-heading: 'Montserrat', sans-serif;
 $headings-font-family: $font-heading;
-$letter-spacing: 2px;
-$letter-spacing-xs: 1.1px;
+$letter-spacing: 1.0px;
+$letter-spacing-xs: 0.7px;
 
 $headings-font-weight: 700;
 
@@ -25,37 +25,37 @@ $headings-font-weight: 700;
 $lighten-intensity: 10%;
 $darken-intensity: 20%;
 
-$brand-primary: #534f97;
+$brand-primary: #585857;
 $brand-primary-light: lighten($brand-primary, 10%);
 $brand-primary-dark: darken($brand-primary, 10%);
 $brand-primary-extralight: lighten($brand-primary, 35%);
 $brand-primary-extradark: darken($brand-primary, 15%);
 
-$brand-secondary: #a55efa;
+$brand-secondary: #C83E36;
 $brand-secondary-light: lighten($brand-secondary, 10%);
 $brand-secondary-dark: darken($brand-secondary, 10%);
-$brand-secondary-extralight: lighten($brand-secondary, 35%);
+$brand-secondary-extralight: #FBE9E7;
 $brand-secondary-extradark: darken($brand-secondary, 15%);
 
-$brand-success: #97ba54;
+$brand-success: #95ad39;
 $brand-success-light: lighten($brand-success, 10%);
 $brand-success-dark: darken($brand-success, 10%);
 $brand-success-extralight: lighten($brand-success, 35%);
 $brand-success-extradark: darken($brand-success, 15%);
 
-$brand-info: #446eb5;
+$brand-info: #006b9f;
 $brand-info-light: lighten($brand-info, 10%);
 $brand-info-dark: darken($brand-info, 10%);
 $brand-info-extralight: lighten($brand-info, 35%);
 $brand-info-extradark: darken($brand-info, 15%);
 
-$brand-warning: #f0ad4e;
-$brand-warning-light: lighten($brand-warning, 10%);
+$brand-warning: #fbba00;
+$brand-warning-light: #FCD566;
 $brand-warning-dark: darken($brand-warning, 10%);
-$brand-warning-extralight: lighten($brand-warning, 35%);
+$brand-warning-extralight: #FEF1CC;
 $brand-warning-extradark: darken($brand-warning, 15%);
 
-$brand-danger: #DC134D;
+$brand-danger: #C83E36;
 $brand-danger-light: lighten($brand-danger, 10%);
 $brand-danger-dark: darken($brand-danger, 10%);
 $brand-danger-extralight: lighten($brand-danger, 35%);
@@ -63,7 +63,7 @@ $brand-danger-extradark: darken($brand-danger, 15%);
 
 $brand-black: #000000;
 $brand-white: #ffffff;
-$brand-gray: #676767;
+$brand-gray: $brand-primary;
 $brand-lightgray: #F5F6F7;
 
 $gray-base: $brand-gray;
@@ -80,19 +80,19 @@ $brand-input-color: #656D74;
 
 $text-color: $gray-base;
 $text-muted: $brand-gray;
-$headings-color: $brand-primary;
+$headings-color: $brand-secondary;
 $headings-muted-color: $brand-gray;
 $headings-small-color: $brand-primary;
 $headings-secondary-color: $brand-primary;
 $headings-extra-color: $brand-gray;
 
-$brand-app: $brand-gray;
+$brand-app: $brand-secondary;
 $brand-app-dark: darken($brand-app, 15%);
 
-$brand-dataset: $brand-gray;
+$brand-dataset: $brand-secondary;
 $brand-dataset-dark: darken($brand-dataset, 15%);
 
-$brand-latest: $brand-gray;
+$brand-latest: $brand-primary;
 $brand-latest-dark: darken($brand-latest, 15%);
 
 
@@ -100,20 +100,20 @@ $brand-latest-dark: darken($brand-latest, 15%);
 $main-logo-width: 200px;
 $hero-main-heading-color: $brand-white;
 $hero-secondary-heading-color: $brand-white;
-$hero-overlay-start: $brand-primary;
-$hero-overlay-stop: $brand-primary-extradark;
+$hero-overlay-start: $brand-black;
+$hero-overlay-stop: $brand-black;
 $hero-overlay-opacity-start: 0.0;
-$hero-overlay-opacity-center: 0.6;
-$hero-overlay-opacity-end: 0.9;
+$hero-overlay-opacity-center: 0.3;
+$hero-overlay-opacity-end: 0.6;
 $btn-main-bg: $brand-secondary;
 $btn-main-color: $brand-white;
 $btn-main-active-bg: $brand-secondary-light;
 $btn-main-active-color: $brand-white;
 
-$category-box-bg: $brand-primary;
+$category-box-bg: $brand-secondary;
 $category-box-icon-color: $brand-white;
 $category-box-text-color: $brand-white;
-$category-box-count-color: $brand-primary-extralight;
+$category-box-count-color: $brand-white;
 $stats-text-color: $brand-white;
 $brand-categories: darken($category-box-bg, 20%);
 
@@ -125,7 +125,7 @@ $theme-colors: (
         "primary":    $brand-primary,
         "secondary":  $brand-white,
         "tertiary":   $brand-secondary,
-        "success":    $brand-success,
+        "success":    $brand-secondary,
         "info":       $brand-info,
         "warning":    $brand-warning,
         "danger":     $brand-danger,
@@ -145,7 +145,7 @@ $banner-heading-color: $brand-white;
 $banner-text-color: $brand-white;
 
 $featured-bg: $brand-lightgray;
-$showcase-card-bg: $brand-primary;
+$showcase-card-bg: $brand-secondary;
 $showcase-card-heading-color: $brand-white;
 $showcase-card-text-color: $brand-white;
 
@@ -169,9 +169,9 @@ $card-max-width: 250px;
 $card-content-height: 6.875rem;
 $card-heading-rows: 3;
 
-$card-bg: $brand-primary-extralight;
+$card-bg: $brand-secondary-extralight;
 $card-bg-active: $brand-white;
-$card--image-bg: $brand-primary-extralight;
+$card--image-bg: $brand-secondary-extralight;
 $card--image-bg-active: $brand-white;
 
 $card-text-color: $gray-dark;
@@ -182,7 +182,7 @@ $card-text-color--highlight-active: $brand-danger-light;
 $card-title-secondary-color: $gray-darker;
 $card-border-radius: $border-radius-medium;
 $card-star-filled: $text-color;
-$card-star-empty: $brand-success-light;
+$card-star-empty: $brand-warning-light;
 
 // Navigation
 $navbar-default-bg: $brand-white;
@@ -245,7 +245,7 @@ $navbar-offcanvas-link-color: $brand-primary;
 $navbar-offcanvas-link-color-hover: $brand-white;
 $navbar-offcanvas-link-color-active: $brand-white;
 $navbar-offcanvas-border-color: $border-color;
-$navbar-offcanvas-heading-color: $brand-primary;
+$navbar-offcanvas-heading-color: $brand-secondary;
 
 // Filters
 $filter-bg: transparent;
@@ -256,9 +256,9 @@ $filter-bg-hover: $gray-lighter;
 $filter-hover: $text-color;
 
 // Links
-$link-color: $brand-primary;
+$link-color: $brand-secondary;
 $link-color-active: lighten($link-color, 20%);
-$link-secondary-color: $brand-success;
+$link-secondary-color: $brand-secondary;
 $link-secondary-color-active: lighten($link-secondary-color, 20%);
 
 // Rating (ckan extension)
@@ -293,7 +293,7 @@ $stages-text-color-active: $brand-white;
 $stages-text-color-filled: $brand-white;
 
 // Sidebar (CMS only)
-$sidebar-heading-color: $gray-light;
+$sidebar-heading-color: $brand-secondary;
 $sidebar-item-bg: $brand-white;
 $sidebar-item-bg--highlight: $gray-lighter;
 $sidebar-item-bg-active: $brand-secondary;
@@ -310,7 +310,7 @@ $breadcrumb-color: $headings-muted-color;
 $breadcrumb-separator: "/";
 
 // Misc component colors
-$badge-background-color: $brand-primary;
+$badge-background-color: $brand-secondary;
 $badge-background-color-active: $brand-primary;
 $image-slider-background-color: $navbar-default-bg;
 $label-text-color: $brand-white;
@@ -319,7 +319,7 @@ $media-item-background-color: $brand-background;
 $table-border-color: $border-color;
 $topic-list-background-color: $gray-lighter;
 $toolbar-default-bg: #f8f8f8;
-$toolbar-text-color: $headings-muted-color;
+$toolbar-text-color: $brand-secondary;
 
 $pagination-active-bg: $brand-primary;
 
@@ -353,7 +353,7 @@ $font-size-h4: 1.125rem; // ~18px
 $font-size-h5: $font-size-base;
 $font-size-h6: 0.75rem; // ~12px
 
-$featured-font-weight: bold;
+$featured-font-weight: 900;
 
 $padding-large-vertical: 0.625rem;
 $padding-large-horizontal: 0.625rem;

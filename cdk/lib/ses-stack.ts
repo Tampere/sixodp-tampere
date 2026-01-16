@@ -30,7 +30,7 @@ export class SesStack extends Stack {
 
         new aws_route53.MxRecord(this, 'MxRecord', {
             zone: hostedZone,
-            recordName: props.environment,
+            recordName: props.fqdn,
             values: [{
                 hostName: "inbound-smtp.eu-west-1.amazonaws.com",
                 priority: 10

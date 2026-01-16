@@ -57,7 +57,7 @@ export class DatabaseStack extends Stack {
             securityGroups: [
                 this.ckanDatabaseSecurityGroup
             ],
-            allowMajorVersionUpgrade: true
+            allowMajorVersionUpgrade: false
         })
 
         const postgresHostParameter = new aws_ssm.StringParameter(this, 'postgrestHostParameter', {
@@ -66,7 +66,7 @@ export class DatabaseStack extends Stack {
         })
 
         this.wpDatabaseCredentials = new aws_rds.DatabaseSecret(this, 'wpMasterCredentials', {
-            username: 'ckan_admin',
+            username: 'wordpress',
             encryptionKey: secretEncryptionKey,
             secretName: `wp-database-master-secret-${props.environment}`
         })

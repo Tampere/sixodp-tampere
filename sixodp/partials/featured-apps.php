@@ -21,7 +21,7 @@
             <?php
             $lang = get_current_locale_ckan();
             $item = array(
-              'external_card_class' => 'card-success',
+              'external_card_class' => '',
               'image_url' => CKAN_BASE_URL . "/uploads/showcase/".$showcase['featured_image'],
               'title' => get_translated($showcase, 'title'),
               'show_rating' => false,
@@ -57,7 +57,7 @@
       <?php
         foreach ($showcases as $showcase) {
           $item = array(
-            'external_card_class' => 'card-success',
+            'external_card_class' => '',
             'image_url' => CKAN_BASE_URL . "/uploads/showcase/".$showcase['featured_image'],
             'title' => get_translated($showcase, 'title'),
             'show_rating' => false,

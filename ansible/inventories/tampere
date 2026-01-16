@@ -1,0 +1,15 @@
+[webserver]
+sixodp-web ansible_connection=local ansible_ssh_user=ubuntu
+
+[webserver:vars]
+deployment_environment_id=tampere
+secrets_file_path="../../sixodp-secrets/tampere/secrets.yml"
+background_server=False
+
+[backgroundserver]
+sixodp-background ansible_connection=local ansible_ssh_user=ubuntu
+
+[backgroundserver:vars]
+deployment_environment_id=tampere
+secrets_file_path="../../sixodp-secrets/tampere/secrets.yml"
+background_server=True
