@@ -1,8 +1,9 @@
 {% block header_wrapper %}
   {% block header_account %}
-    {%- set extra_classes = ' has-notification' if h.get_notifications() | length > 0 else '' -%}
+    {%- set notifications = h.get_notifications() -%}
+    {%- set extra_classes = ' has-notification' if notifications | length > 0 else '' -%}
     <div class="nav-wrapper{{ extra_classes }}">
-      {% for notification in h.get_notifications() %}
+      {% for notification in notifications %}
         <div class="notification">
             <p class="notification-content">
               <i class="fa fa-exclamation-circle"></i>{{ notification.title }}
@@ -15,9 +16,7 @@
           <div class="navbar-header">
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#top-nav-collapse" aria-expanded="false">
               <span class="sr-only">_('Toggle navigation')</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
+              <span class="navbar-toggler-icon"></span>
             </button>
           </div>
 
@@ -25,7 +24,7 @@
             {% block skip %}
             <a href="#content" class="sr-only sr-only-focusable">{{ _('Skip to content') }}</a>
             {% endblock %}
-            {% snippet 'snippets/navigation_tabs.html' %}
+            {% snippet 'snippets/navigation_tabs.html', navigation_items=navigation_items %}
           </div>
         </div>
         {% block header_debug %}

@@ -1,6 +1,6 @@
 {% block header_site_navigation_tabs %}
   <ul class="navbar-nav me-auto">
-    {{ h.build_nav_main() }}
+    {{ h.build_nav_main(navigation_items) }}
   </ul>
   <ul class="nav navbar-nav navbar-right">
     {% snippet 'home/snippets/sixodp_navbar_search.html' %}
@@ -12,8 +12,8 @@
   <div class="navbar-footer">
     <button type="button"
             class="navbar-toggle-footer collapsed"
-            data-toggle="collapse"
-            data-target="#top-nav-collapse"
+            data-bs-toggle="collapse"
+            data-bs-target="#top-nav-collapse"
             aria-expanded="false">
       <span class="fa fa-chevron-up"></span>
     </button>

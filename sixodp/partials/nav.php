@@ -11,9 +11,7 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#top-nav-collapse" aria-expanded="false">
         <span class="sr-only"><?php _e('Toggle navigation', 'sixodp');?> </span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
+        <span class="navbar-toggler-icon"></span>
       </button>
     </div>
 
@@ -65,8 +63,8 @@
       <div class="navbar-footer">
         <button type="button"
                 class="navbar-toggle-footer collapsed"
-                data-toggle="collapse"
-                data-target="#top-nav-collapse"
+                data-bs-toggle="collapse"
+                data-bs-target="#top-nav-collapse"
                 aria-expanded="false"
                 aria-label="<?php _e('Search', 'sixodp');?>">
           <span class="fa fa-chevron-up"></span>
