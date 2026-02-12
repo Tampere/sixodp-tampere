@@ -7,4 +7,5 @@ node_modules
 .cdk.staging
 cdk.out
 
+# ignore context as it needs be generated
 cdk.context.json

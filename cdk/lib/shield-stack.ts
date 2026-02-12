@@ -81,45 +81,76 @@ export class ShieldStack extends Stack {
             }
         ]
 
-        if ( props.limitASNs ) {
-            const rate_limited_ASN_1 = aws_ssm.StringParameter.fromStringParameterAttributes(this,
-                'rateLimitASN1', {
-                    parameterName: props.rateLimitASN1ParameterName,
-                    simpleName: false
-                })
+        if (props.onlyAllowWhitelistedCountries) {
+            const whitelistedCountryCodesParameter = new CfnParameter(this,  'whitelistedCountryCodesParameter', {
+                type: 'AWS::SSM::Parameter::Value<List<String>>',
+                default: props.whitelistedCountriesParameterName
+            });
 
-            const rate_limited_ASN_2 = aws_ssm.StringParameter.fromStringParameterAttributes(this,
-                'rateLimitASN2', {
-                    parameterName: props.rateLimitASN2ParameterName,
-                    simpleName: false
-                })
-
-            const limitASNRule: aws_wafv2.CfnWebACL.RuleProperty = {
-                name: 'rate-limited-ASNs',
-                priority: 2,
+            const whitelistedCountries: aws_wafv2.CfnWebACL.RuleProperty = {
+                name: "whitelisted-countries",
+                priority: rules.length,
                 action: {
                     block: {}
                 },
                 statement: {
-                    rateBasedStatement: {
-                        limit: 10,
-                        aggregateKeyType: "CONSTANT",
-                        evaluationWindowSec: 60,
-                        scopeDownStatement: {
-                            asnMatchStatement: {
-                                asnList: [Token.asNumber(rate_limited_ASN_1.stringValue), Token.asNumber(rate_limited_ASN_2.stringValue)]
+                    notStatement: {
+                        statement: {
+                            geoMatchStatement: {
+                                countryCodes: whitelistedCountryCodesParameter.valueAsList
                             }
                         }
                     }
                 },
                 visibilityConfig: {
                     cloudWatchMetricsEnabled: true,
-                    metricName: "rate-limited-ASNs",
+                    metricName: "request-rate-limit-countries",
                     sampledRequestsEnabled: true
                 }
+
             }
 
-            rules.push(limitASNRule)
+            rules.push(whitelistedCountries)
+        }
+
+
+        const RateLimitASNsGroupSchema = z.array(
+            z.number()
+        )
+
+        const rateLimitedASNsParameter = aws_ssm.StringParameter.valueFromLookup(this, props.rateLimitedASNsParameterName)
+        const rateLimitedASNsJson = rateLimitedASNsParameter.startsWith("dummy-value") ? "dummy" : JSON.parse(rateLimitedASNsParameter)
+
+        if ( rateLimitedASNsJson !== "dummy") {
+
+            const rateLimitedASNs = RateLimitASNsGroupSchema.parse(rateLimitedASNsJson)
+            if (rateLimitedASNs.length > 0) {
+                const limitASNRule: aws_wafv2.CfnWebACL.RuleProperty = {
+                    name: 'rate-limited-ASNs',
+                    priority: rules.length,
+                    action: {
+                        block: {}
+                    },
+                    statement: {
+                        rateBasedStatement: {
+                            limit: 10,
+                            aggregateKeyType: "CONSTANT",
+                            evaluationWindowSec: 60,
+                            scopeDownStatement: {
+                                asnMatchStatement: {
+                                    asnList: rateLimitedASNs
+                                }
+                            }
+                        }
+                    },
+                    visibilityConfig: {
+                        cloudWatchMetricsEnabled: true,
+                        metricName: "rate-limited-ASNs",
+                        sampledRequestsEnabled: true
+                    }
+                }
+                rules.push(limitASNRule)
+            }
         }
 
         if (props.limitCountries) {
@@ -130,7 +161,7 @@ export class ShieldStack extends Stack {
 
             const rateLimitedCountries: aws_wafv2.CfnWebACL.RuleProperty = {
                 name: "rate-limit-countries",
-                priority: 3,
+                priority: rules.length,
                 action: {
                     block: {}
                 },

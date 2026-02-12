@@ -24,6 +24,7 @@ const env = {
     environment: 'tampere',
     fqdn: 'data.tampere.fi',
     domain: 'data.tampere.fi',
+    shieldEnabled: true
 }
 
 const vpcStack = new VpcStack(app, 'vpcStack', {
@@ -138,32 +139,35 @@ const sesStack = new SesStack(app, 'sesStack', {
 })
 
 
-const shieldParameterStack = new ShieldParameterStack(app, 'shieldParameterStack', {
-    env: {
-        account: stackProps.account,
-        region: stackProps.region
-    },
-    environment: env.environment,
-    fqdn: env.fqdn,
-    domain: env.domain
-})
+if (env.shieldEnabled) {
+
+    const shieldParameterStack = new ShieldParameterStack(app, 'shieldParameterStack', {
+        env: {
+            account: stackProps.account,
+            region: stackProps.region
+        },
+        environment: env.environment,
+        fqdn: env.fqdn,
+        domain: env.domain
+    })
 
 
-const shieldStack = new ShieldStack(app, 'shieldStack', {
-    env: {
-        account: stackProps.account,
-        region: stackProps.region
-    },
-    environment: env.environment,
-    fqdn: env.fqdn,
-    domain: env.domain,
-    bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
-    whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
-    managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
-    limitASNs: true,
-    rateLimitASN1ParameterName: shieldParameterStack.rateLimitedASN1ParameterName,
-    rateLimitASN2ParameterName: shieldParameterStack.rateLimitedASN2ParameterName,
-    limitCountries: true,
-    rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
-    loadBalancer: loadBalancerStack.loadBalancer
-})
+    const shieldStack = new ShieldStack(app, 'shieldStack', {
+        env: {
+            account: stackProps.account,
+            region: stackProps.region
+        },
+        environment: env.environment,
+        fqdn: env.fqdn,
+        domain: env.domain,
+        bannedIpListParameterName: shieldParameterStack.bannedIpListParameterName,
+        whitelistedIpListParameterName: shieldParameterStack.whitelistedIpListParameterName,
+        managedRulesParameterName: shieldParameterStack.managedRulesParameterName,
+        rateLimitedASNsParameterName: shieldParameterStack.rateLimitedASNsParameterName,
+        limitCountries: true,
+        rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
+        whitelistedCountriesParameterName: shieldParameterStack.whitelistedCountriesParameterName,
+        onlyAllowWhitelistedCountries: false,
+        loadBalancer: loadBalancerStack.loadBalancer,
+    })
+}
