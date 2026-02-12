@@ -81,6 +81,39 @@ export class ShieldStack extends Stack {
             }
         ]
 
+        if (props.onlyAllowWhitelistedCountries) {
+            const whitelistedCountryCodesParameter = new CfnParameter(this,  'whitelistedCountryCodesParameter', {
+                type: 'AWS::SSM::Parameter::Value<List<String>>',
+                default: props.whitelistedCountriesParameterName
+            });
+
+            const whitelistedCountries: aws_wafv2.CfnWebACL.RuleProperty = {
+                name: "whitelisted-countries",
+                priority: rules.length,
+                action: {
+                    block: {}
+                },
+                statement: {
+                    notStatement: {
+                        statement: {
+                            geoMatchStatement: {
+                                countryCodes: whitelistedCountryCodesParameter.valueAsList
+                            }
+                        }
+                    }
+                },
+                visibilityConfig: {
+                    cloudWatchMetricsEnabled: true,
+                    metricName: "request-rate-limit-countries",
+                    sampledRequestsEnabled: true
+                }
+
+            }
+
+            rules.push(whitelistedCountries)
+        }
+
+
         const RateLimitASNsGroupSchema = z.array(
             z.number()
         )

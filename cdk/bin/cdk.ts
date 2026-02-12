@@ -166,6 +166,8 @@ if (env.shieldEnabled) {
         rateLimitedASNsParameterName: shieldParameterStack.rateLimitedASNsParameterName,
         limitCountries: true,
         rateLimitedCountriesParameterName: shieldParameterStack.rateLimitedCountriesParameterName,
+        whitelistedCountriesParameterName: shieldParameterStack.whitelistedCountriesParameterName,
+        onlyAllowWhitelistedCountries: true,
         loadBalancer: loadBalancerStack.loadBalancer
     })
 }

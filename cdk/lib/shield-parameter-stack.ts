@@ -8,6 +8,7 @@ export class ShieldParameterStack extends Stack {
     readonly managedRulesParameterName: string;
     readonly rateLimitedASNsParameterName: string;
     readonly rateLimitedCountriesParameterName: string;
+    readonly whitelistedCountriesParameterName: string;
 
     constructor(scope: Construct, id: string, props: EnvProps) {
         super(scope, id, props);
@@ -45,6 +46,13 @@ export class ShieldParameterStack extends Stack {
             stringListValue: ['some placeholder'],
             description: 'Country codes under heavy rate limit',
             parameterName: this.rateLimitedCountriesParameterName
+        })
+
+        this.whitelistedCountriesParameterName = `/${props.environment}/waf/whitelisted_countries`
+        new aws_ssm.StringListParameter(this, 'whitelistedCountries', {
+            stringListValue: ['some placeholder'],
+            description: 'Whitelisted country codes',
+            parameterName: this.whitelistedCountriesParameterName
         })
     }
 }

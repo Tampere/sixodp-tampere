@@ -8,5 +8,7 @@ export interface ShieldStackProps extends EnvProps {
     rateLimitedASNsParameterName: string,
     rateLimitedCountriesParameterName: string,
     limitCountries: boolean,
+    onlyAllowWhitelistedCountries: boolean,
+    whitelistedCountriesParameterName: string,
     loadBalancer: aws_elasticloadbalancingv2.ApplicationLoadBalancer
 }
