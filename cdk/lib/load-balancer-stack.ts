@@ -18,6 +18,8 @@ import {StringParameter} from "aws-cdk-lib/aws-ssm";
 
 export class LoadBalancerStack extends Stack {
 
+    readonly loadBalancer: aws_elasticloadbalancingv2.ApplicationLoadBalancer;
+
     constructor(scope: Construct, id: string, props: LoadBalancerStackProps) {
         super(scope, id, props);
 
@@ -32,18 +34,18 @@ export class LoadBalancerStack extends Stack {
         })
 
 
-        const loadBalancer = new aws_elasticloadbalancingv2.ApplicationLoadBalancer(this, 'loadBalancer', {
+        this.loadBalancer = new aws_elasticloadbalancingv2.ApplicationLoadBalancer(this, 'loadBalancer', {
             vpc: props.vpc,
             internetFacing: true
         })
 
 
-        loadBalancer.addRedirect({
+        this.loadBalancer.addRedirect({
             sourceProtocol: ApplicationProtocol.HTTP,
             targetProtocol: ApplicationProtocol.HTTPS
         })
 
-        const listener = loadBalancer.addListener('sslListener', {
+        const listener = this.loadBalancer.addListener('sslListener', {
             port: 443,
             open: true,
             certificates: [
@@ -64,7 +66,7 @@ export class LoadBalancerStack extends Stack {
 
         new aws_route53.ARecord(this, 'ARecord', {
             zone: zone,
-            target: aws_route53.RecordTarget.fromAlias(new LoadBalancerTarget(loadBalancer)),
+            target: aws_route53.RecordTarget.fromAlias(new LoadBalancerTarget(this.loadBalancer)),
             recordName: props.environment
         })
 
@@ -76,7 +78,7 @@ export class LoadBalancerStack extends Stack {
                 validation: CertificateValidation.fromDns(zone)
             })
 
-            const pgAdminListener = loadBalancer.addListener('pgAdminListener', {
+            const pgAdminListener = this.loadBalancer.addListener('pgAdminListener', {
                 port: 8000,
                 open: false,
                 protocol: ApplicationProtocol.HTTPS,
@@ -96,7 +98,7 @@ export class LoadBalancerStack extends Stack {
 
             new aws_route53.ARecord(this, 'pgAdminARecord', {
                 zone: zone,
-                target: aws_route53.RecordTarget.fromAlias(new LoadBalancerTarget(loadBalancer)),
+                target: aws_route53.RecordTarget.fromAlias(new LoadBalancerTarget(this.loadBalancer)),
                 recordName: `phppgadmin.${props.environment}`
             })
 
@@ -122,6 +124,6 @@ export class LoadBalancerStack extends Stack {
             ]
         })
 
-        loadBalancer.logAccessLogs(logBucket, this.stackName)
+        this.loadBalancer.logAccessLogs(logBucket, this.stackName)
     }
 }

@@ -10,6 +10,8 @@ import {WebServerStack} from "../lib/web-server-stack";
 import {BackgroundServerStack} from "../lib/background-server-stack";
 import {FileSystemStack} from "../lib/file-system-stack";
 import {SesStack} from "../lib/ses-stack";
+import {ShieldParameterStack} from "../lib/shield-parameter-stack";
+import {ShieldStack} from "../lib/shield-stack";
 
 const app = new cdk.App();
 
