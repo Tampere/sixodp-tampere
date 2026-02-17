@@ -9,6 +9,7 @@ export class ShieldParameterStack extends Stack {
     readonly rateLimitedASNsParameterName: string;
     readonly rateLimitedCountriesParameterName: string;
     readonly whitelistedCountriesParameterName: string;
+    readonly blacklistedCountriesParameterName: string;
 
     constructor(scope: Construct, id: string, props: EnvProps) {
         super(scope, id, props);
@@ -54,5 +55,13 @@ export class ShieldParameterStack extends Stack {
             description: 'Whitelisted country codes',
             parameterName: this.whitelistedCountriesParameterName
         })
+
+        this.blacklistedCountriesParameterName = `/${props.environment}/waf/blacklisted_countries`
+        new aws_ssm.StringListParameter(this, 'blacklistedCountries', {
+            stringListValue: ['some placeholder'],
+            description: 'Blacklisted country codes',
+            parameterName: this.blacklistedCountriesParameterName
+        })
+
     }
 }

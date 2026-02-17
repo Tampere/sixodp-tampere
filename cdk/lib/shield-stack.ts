@@ -104,13 +104,41 @@ export class ShieldStack extends Stack {
                 },
                 visibilityConfig: {
                     cloudWatchMetricsEnabled: true,
-                    metricName: "request-rate-limit-countries",
+                    metricName: "request-whitelisted-countries",
                     sampledRequestsEnabled: true
                 }
 
             }
 
             rules.push(whitelistedCountries)
+        }
+
+        if (props.blockBlacklistedCountries) {
+            const blacklistedCountryCodesParameter = new CfnParameter(this,  'blacklistedCountryCodesParameter', {
+                type: 'AWS::SSM::Parameter::Value<List<String>>',
+                default: props.blacklistedCountriesParameterName
+            });
+
+            const blacklistedCountries: aws_wafv2.CfnWebACL.RuleProperty = {
+                name: "blacklisted-countries",
+                priority: rules.length,
+                action: {
+                    block: {}
+                },
+                statement: {
+                    geoMatchStatement: {
+                        countryCodes: blacklistedCountryCodesParameter.valueAsList
+                    }
+                },
+                visibilityConfig: {
+                    cloudWatchMetricsEnabled: true,
+                    metricName: "request-blacklisted-countries",
+                    sampledRequestsEnabled: true
+                }
+
+            }
+
+            rules.push(blacklistedCountries)
         }
 
 
