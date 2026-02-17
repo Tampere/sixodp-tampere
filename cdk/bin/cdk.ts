@@ -169,7 +169,7 @@ if (env.shieldEnabled) {
         whitelistedCountriesParameterName: shieldParameterStack.whitelistedCountriesParameterName,
         onlyAllowWhitelistedCountries: false,
         loadBalancer: loadBalancerStack.loadBalancer,
-        blockBlacklistedCountries: false,
+        blockBlacklistedCountries: true,
         blacklistedCountriesParameterName: shieldParameterStack.blacklistedCountriesParameterName,
     })
 }
