@@ -46,7 +46,7 @@ export class DatabaseStack extends Stack {
             vpc: props.vpc,
             snapshotIdentifier: ckanSnapshotIdentifier.valueAsString,
             engine: aws_rds.DatabaseInstanceEngine.postgres({version: aws_rds.PostgresEngineVersion.VER_14}),
-            instanceType: aws_ec2.InstanceType.of(aws_ec2.InstanceClass.T4G, aws_ec2.InstanceSize.SMALL),
+            instanceType: aws_ec2.InstanceType.of(aws_ec2.InstanceClass.T4G, aws_ec2.InstanceSize.MEDIUM),
             allocatedStorage: 50,
             maxAllocatedStorage: 100,
             backupRetention: Duration.days(7),
