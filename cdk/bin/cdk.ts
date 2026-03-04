@@ -171,6 +171,6 @@ if (env.shieldEnabled) {
         loadBalancer: loadBalancerStack.loadBalancer,
         blockBlacklistedCountries: true,
         blacklistedCountriesParameterName: shieldParameterStack.blacklistedCountriesParameterName,
-        blockASNs: false,
+        blockASNs: true,
     })
 }
