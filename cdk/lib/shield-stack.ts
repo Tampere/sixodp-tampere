@@ -308,6 +308,39 @@ export class ShieldStack extends Stack {
         }
 
 
+        const blockBing: aws_wafv2.CfnWebACL.RuleProperty = {
+            name: "match_rule",
+            priority: rules.length,
+            action: {
+                block: {}
+            },
+            statement: {
+                andStatement: {
+                    statements: [
+                        {
+                            labelMatchStatement: {
+                                scope: "LABEL",
+                                key: "awswaf:managed:aws:bot-control:bot:name:bingbot"
+                            }
+                        },
+                        {
+                            labelMatchStatement: {
+                                scope: "LABEL",
+                                key: "awswaf:managed:aws:bot-control:bot:verified"
+                            }
+                        }
+                    ]
+                }
+            },
+            ruleLabels: [],
+            visibilityConfig: {
+                cloudWatchMetricsEnabled: true,
+                metricName: "request-block-bingbot",
+                sampledRequestsEnabled: true
+            }
+        }
+
+        rules.push(blockBing)
 
         const cfnWebAcl = new aws_wafv2.CfnWebACL(this, 'WAFWebACL', {
             scope: "REGIONAL",
