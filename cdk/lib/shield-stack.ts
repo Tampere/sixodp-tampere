@@ -270,6 +270,97 @@ export class ShieldStack extends Stack {
         }
 
 
+        const mediumPriorityCountryCodesParameter = new CfnParameter(this,  'mediumPriorityCountryCodesParameter', {
+            type: 'AWS::SSM::Parameter::Value<List<String>>',
+            default: props.mediumPriorityCountryCodeListParameterName
+        });
+
+        const rateLimitedPathsParameter = aws_ssm.StringParameter.valueFromLookup(this, props.rateLimitedPathsParameterName, '[]')
+        const rateLimitedPathsJson = JSON.parse(rateLimitedPathsParameter)
+        const rateLimitedPathsSchema = z.array(
+            z.object({
+                    limit: z.number(),
+                    evaluationWindowSec: z.number(),
+                    regexPath: z.string(),
+                    name: z.string()
+                }
+            ))
+
+        let rateLimitedPathsRules: any[] = []
+        const validatedPaths = rateLimitedPathsSchema.parse(rateLimitedPathsJson)
+
+        validatedPaths.forEach((rule, index: number) => {
+            let rateLimitedPathRule: aws_wafv2.CfnWebACL.RuleProperty = {
+                statement: {
+                    rateBasedStatement: {
+                        limit: rule.limit,
+                        evaluationWindowSec: rule.evaluationWindowSec,
+                        aggregateKeyType: "CUSTOM_KEYS",
+                        customKeys: [
+                            {
+                                asn: {}
+                            }
+                        ],
+                        scopeDownStatement: {
+                            andStatement: {
+                                statements: [
+                                    {
+                                        regexMatchStatement: {
+                                            fieldToMatch: {
+                                                uriPath: {}
+                                            },
+                                            regexString: rule.regexPath,
+                                            textTransformations: [{
+                                                type: "NONE",
+                                                priority: 0
+                                            }]
+                                        }
+                                    },
+                                    {
+                                        sizeConstraintStatement: {
+                                            fieldToMatch: {
+                                                queryString: {}
+                                            },
+                                            comparisonOperator: "GE",
+                                            size: 1,
+                                            textTransformations: [{
+                                                type: "NONE",
+                                                priority: 0
+                                            }]
+                                        }
+                                    },
+                                    {
+                                        notStatement: {
+                                            statement: {
+                                                geoMatchStatement: {
+                                                    countryCodes: mediumPriorityCountryCodesParameter.valueAsList
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                action: {
+                    block: {}
+                },
+                name: `rate-limited-paths-${rule.name}`,
+                priority: rules.length + index,
+                visibilityConfig: {
+                    cloudWatchMetricsEnabled: true,
+                    metricName: `rate-limited-paths-${rule.name}`,
+                    sampledRequestsEnabled: true
+                }
+            }
+
+            rateLimitedPathsRules.push(rateLimitedPathRule)
+        })
+
+        rules = rules.concat(rateLimitedPathsRules)
+
+
         const RuleGroupSchema = z.array(
             z.object(
                 {
@@ -339,6 +430,77 @@ export class ShieldStack extends Stack {
             rules = rules.concat(ruleList)
         }
 
+        const rateLimitNonBotTrafficRule: aws_wafv2.CfnWebACL.RuleProperty = {
+                name: 'ratelimit-nonbot-traffic',
+                priority: rules.length,
+                action: {
+                    block: {}
+                },
+                statement: {
+                    rateBasedStatement: {
+                        limit: 10,
+                        evaluationWindowSec: 60,
+                        aggregateKeyType: "CONSTANT",
+                        scopeDownStatement: {
+                            andStatement: {
+                                statements: [
+                                    {
+                                        notStatement: {
+                                            statement: {
+                                                orStatement: {
+                                                    statements: [
+                                                        {
+                                                            labelMatchStatement: {
+                                                                scope: "LABEL",
+                                                                key: "awswaf:managed:aws:bot-control:bot:verified"
+                                                            }
+                                                        },
+                                                        {
+                                                            labelMatchStatement: {
+                                                                scope: "LABEL",
+                                                                key: "awswaf:managed:aws:bot-control:bot:unverified"
+                                                            }
+                                                        },
+                                                        {
+                                                            labelMatchStatement: {
+                                                                scope: "LABEL",
+                                                                key: "awswaf:managed:aws:bot-control:bot:developer_platform:verified"
+                                                            }
+                                                        },
+                                                        {
+                                                            labelMatchStatement: {
+                                                                scope: "LABEL",
+                                                                key: "awswaf:managed:aws:bot-control:bot:user_triggered:verified"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        notStatement: {
+                                            statement: {
+                                                geoMatchStatement: {
+                                                    countryCodes: mediumPriorityCountryCodesParameter.valueAsList
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                        },
+                    }
+                },
+                visibilityConfig: {
+                    cloudWatchMetricsEnabled: true,
+                    metricName: 'ratelimit-nonbot-traffic',
+                    sampledRequestsEnabled: true
+                }
+            }
+        const nonBotRules: any[] = [rateLimitNonBotTrafficRule]
+
+        rules = rules.concat(nonBotRules)
 
         const blockBing: aws_wafv2.CfnWebACL.RuleProperty = {
             name: "match_rule",

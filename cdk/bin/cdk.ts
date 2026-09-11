@@ -173,5 +173,7 @@ if (env.shieldEnabled) {
         blockBlacklistedCountries: true,
         blacklistedCountriesParameterName: shieldParameterStack.blacklistedCountriesParameterName,
         blockASNs: true,
+        rateLimitedPathsParameterName: shieldParameterStack.rateLimitedPathsParameterName,
+        mediumPriorityCountryCodeListParameterName: shieldParameterStack.mediumPriorityCountryCodeListParameterName
     })
 }
