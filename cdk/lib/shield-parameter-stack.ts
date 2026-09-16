@@ -10,6 +10,8 @@ export class ShieldParameterStack extends Stack {
     readonly rateLimitedCountriesParameterName: string;
     readonly whitelistedCountriesParameterName: string;
     readonly blacklistedCountriesParameterName: string;
+    readonly rateLimitedPathsParameterName: string;
+    readonly mediumPriorityCountryCodeListParameterName: string;
 
     constructor(scope: Construct, id: string, props: EnvProps) {
         super(scope, id, props);
@@ -61,6 +63,20 @@ export class ShieldParameterStack extends Stack {
             stringListValue: ['some placeholder'],
             description: 'Blacklisted country codes',
             parameterName: this.blacklistedCountriesParameterName
+        })
+
+        this.rateLimitedPathsParameterName = `/${props.environment}/waf/rate_limited_paths`
+        new aws_ssm.StringParameter(this, 'rateLimitedPaths', {
+            stringValue: "Some bogus path",
+            description: 'Rate limited paths in JSON',
+            parameterName: this.rateLimitedPathsParameterName
+        })
+
+        this.mediumPriorityCountryCodeListParameterName = `/${props.environment}/waf/medium_priority_country_codes`
+        new aws_ssm.StringListParameter(this, 'mediumPriorityCountryCodeList', {
+            stringListValue: ["Some bogus country code"],
+            description: 'Medium priority country codes',
+            parameterName: this.mediumPriorityCountryCodeListParameterName
         })
 
     }
